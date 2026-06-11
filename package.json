@@ -1,0 +1,20 @@
+{
+  "name": "savery",
+  "version": "1.0.0",
+  "description": "A web application that helps college students discover affordable recipes and create budget-friendly meal plans.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamesjacob2001/Savery.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamesjacob2001/Savery/issues"
+  },
+  "homepage": "https://github.com/jamesjacob2001/Savery#readme"
+}
