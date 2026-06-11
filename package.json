@@ -16,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/jamesjacob2001/Savery/issues"
   },
-  "homepage": "https://github.com/jamesjacob2001/Savery#readme"
+  "homepage": "https://github.com/jamesjacob2001/Savery#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
 }
