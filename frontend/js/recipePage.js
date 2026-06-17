@@ -1,0 +1,1 @@
+console.log("Recipe Page JavaScript file loaded");
