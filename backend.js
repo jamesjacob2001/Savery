@@ -1,4 +1,5 @@
 import express from "express";
+import recipesRouter from "./routes/recipes.js";
 
 console.log("Savery server starting...");
 console.log("Hello from the backend...");
@@ -9,6 +10,8 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.static("frontend"));
+
+app.use("/api/recipes", recipesRouter);
 
 // this function is being called by express to start the server
 app.listen(PORT, () => {
