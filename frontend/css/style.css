@@ -1,0 +1,426 @@
+/* ============================================================
+   style.css  –  Savery shared styles
+   Covers: navbar, recipe cards, planner grid, favorites page
+   ============================================================ */
+
+/* ── CSS Custom Properties (design tokens) ── */
+:root {
+  --green: #4caf50;
+  --green-dark: #388e3c;
+  --red-heart: #e53935;
+  --white: #ffffff;
+  --off-white: #f9f9f9;
+  --light-grey: #eeeeee;
+  --border-grey: #cccccc;
+  --text-dark: #222222;
+  --text-muted: #666666;
+  --font-main: "Segoe UI", Arial, sans-serif;
+  --radius: 12px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Reset & Base ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--off-white);
+  color: var(--text-dark);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ============================================================
+   NAVIGATION BAR
+   ============================================================ */
+.savery-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--border-grey);
+  box-shadow: var(--shadow);
+}
+
+.nav-logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: 1px;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Default nav button style */
+.nav-btn {
+  padding: 6px 14px;
+  border: 1px solid var(--border-grey);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  background-color: var(--white);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.nav-btn:hover {
+  background-color: var(--light-grey);
+}
+
+/* Active page nav button gets green highlight */
+.nav-btn--active {
+  background-color: var(--green);
+  color: var(--white);
+  border-color: var(--green);
+}
+
+.nav-btn--active:hover {
+  background-color: var(--green-dark);
+}
+
+/* Heart icon in the nav */
+.nav-heart {
+  color: var(--red-heart);
+  font-size: 1.3rem;
+}
+
+/* ============================================================
+   SHARED RECIPE CARD
+   Used on both the Discovery page (Melissa) and Favorites page
+   ============================================================ */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 24px;
+}
+
+.recipe-card {
+  background-color: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.recipe-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Heart button overlaid on top-right of card */
+.card-heart-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--red-heart);
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* Recipe image placeholder / actual image */
+.card-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  background-color: var(--light-grey);
+  display: block;
+}
+
+/* Text area below the image */
+.card-body {
+  padding: 12px;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.card-meta {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   FAVORITES PAGE
+   ============================================================ */
+.favorites-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.favorites-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--red-heart);
+  margin-bottom: 4px;
+}
+
+.favorites-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+/* Search row */
+.favorites-search-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.savery-search-input {
+  flex: 1;
+  padding: 8px 14px;
+  border: 1px solid var(--border-grey);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.savery-search-input:focus {
+  border-color: var(--green);
+}
+
+.filter-icon {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  margin-top: 60px;
+  font-size: 1rem;
+}
+
+.empty-state a {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ============================================================
+   MEAL PLANNER PAGE
+   ============================================================ */
+.planner-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.planner-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* Cost banner */
+.planner-cost-banner {
+  background-color: var(--green);
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+/* Table wrapper allows horizontal scroll on small screens */
+.planner-grid-wrapper {
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+/* Planner table */
+.planner-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+  background-color: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.planner-table th,
+.planner-table td {
+  border: 1px solid var(--border-grey);
+  padding: 10px 8px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 0.88rem;
+}
+
+/* Day header row */
+.planner-table thead th {
+  background-color: var(--light-grey);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Meal label column (Breakfast, Lunch, Dinner) */
+.planner-table td.meal-label {
+  font-weight: 600;
+  background-color: var(--off-white);
+  white-space: nowrap;
+  text-align: left;
+  padding-left: 14px;
+}
+
+/* Individual slot cell */
+.planner-slot {
+  min-width: 90px;
+  min-height: 64px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.15s;
+  position: relative;
+}
+
+.planner-slot:hover {
+  background-color: #e8f5e9;
+}
+
+/* Text showing selected recipe in a slot */
+.slot-recipe-name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Remove (x) button inside a filled slot */
+.slot-remove-btn {
+  background: none;
+  border: none;
+  color: var(--red-heart);
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: block;
+  margin: 4px auto 0;
+}
+
+/* Dots placeholder for empty slot */
+.slot-placeholder {
+  color: var(--border-grey);
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+
+/* Action buttons below the grid */
+.planner-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn-savery-green {
+  padding: 10px 22px;
+  background-color: var(--green);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn-savery-green:hover {
+  background-color: var(--green-dark);
+}
+
+.btn-savery-outline {
+  padding: 10px 22px;
+  background-color: var(--white);
+  color: var(--text-dark);
+  border: 1px solid var(--border-grey);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-savery-outline:hover {
+  background-color: var(--light-grey);
+}
+
+/* Recipe picker modal (shown when clicking a slot) */
+.slot-picker-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.slot-picker-box {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px;
+  min-width: 300px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.slot-picker-box h3 {
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+}
+
+.slot-picker-box input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-grey);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  outline: none;
+}
+
+.slot-picker-box input:focus {
+  border-color: var(--green);
+}
+
+.slot-picker-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  float: right;
+  color: var(--text-muted);
+}

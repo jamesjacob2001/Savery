@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Savery - Plan Your Meals</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <!-- Shared app styles -->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+
+    <!-- ── Navigation Bar ── -->
+    <nav class="savery-nav">
+      <div class="nav-left">
+        <a href="recipes.html" class="nav-btn">Create a Recipe</a>
+        <a href="planner.html" class="nav-btn nav-btn--active">Plan Your Meals</a>
+      </div>
+      <div class="nav-center">
+        <a href="index.html" class="nav-logo">Savery</a>
+      </div>
+      <div class="nav-right">
+        <a href="favorites.html" class="nav-btn">Favorites</a>
+        <span class="nav-heart">&#9829;</span>
+      </div>
+    </nav>
+
+    <!-- ── Page Header ── -->
+    <main class="planner-main">
+      <h2 class="planner-heading">Weekly Meal Plan</h2>
+
+      <!-- ── Estimated Total Cost Banner ── -->
+      <div class="planner-cost-banner">
+        Estimated Weekly Cost: <span id="totalCost">$0.00</span>
+      </div>
+
+      <!-- ── Meal Plan Grid ── -->
+      <!--
+        Grid layout: rows = meal times (Breakfast, Lunch, Dinner)
+                     cols = days (Mon through Sun)
+        Each cell is a slot where a recipe name can be placed.
+        Clicking a slot opens an input to type/select a recipe.
+      -->
+      <div class="planner-grid-wrapper">
+        <table class="planner-table" id="plannerTable">
+          <thead>
+            <tr>
+              <!-- Empty corner cell -->
+              <th></th>
+              <th>Mon</th>
+              <th>Tues</th>
+              <th>Wed</th>
+              <th>Thurs</th>
+              <th>Fri</th>
+              <th>Sat</th>
+              <th>Sun</th>
+            </tr>
+          </thead>
+          <tbody id="plannerBody">
+            <!-- Rows injected by plannerPage.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ── Action Buttons ── -->
+      <div class="planner-actions">
+        <button class="btn-savery-green" id="savePlanBtn">Save Meal Plan</button>
+        <button class="btn-savery-outline" id="clearPlanBtn">Clear Plan</button>
+      </div>
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Planner page logic -->
+    <script type="module" src="./js/plannerPage.js"></script>
+  </body>
+</html>
