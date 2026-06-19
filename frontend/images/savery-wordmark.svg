@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 76" aria-hidden="true">
+  <!-- Dollar-sign S: spoon (left) + upside-down fork (right) -->
+  <g fill="currentColor">
+    <ellipse cx="24" cy="10" rx="5.5" ry="7.5" />
+    <rect x="21.5" y="15" width="5" height="55" rx="2.5" />
+    <rect x="32" y="15" width="4" height="48" rx="2" />
+  </g>
+  <path
+    d="M30.5 63v7M34 63v7M37.5 63v7"
+    stroke="currentColor"
+    stroke-width="3.5"
+    stroke-linecap="round"
+    fill="none"
+  />
+  <path
+    d="M36 32c0-4-3.5-7-9-7s-9 3-9 6.5c0 3.5 3.5 5.5 9 6s9 2.5 9 6c0 3.5-3.5 6.5-9 6.5s-8.5-2.5-8.5-6"
+    stroke="currentColor"
+    stroke-width="5.5"
+    stroke-linecap="round"
+    fill="none"
+  />
+
+  <!-- avery -->
+  <text
+    x="48"
+    y="53"
+    font-family="Nunito, Segoe UI, Arial, sans-serif"
+    font-weight="500"
+    font-size="48"
+    fill="currentColor"
+    letter-spacing="0.5"
+  >
+    avery
+  </text>
+</svg>
