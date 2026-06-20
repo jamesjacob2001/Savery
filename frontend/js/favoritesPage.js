@@ -95,8 +95,9 @@ function buildCard(recipe) {
       <p class="card-meta">
         Cuisine: ${recipe.cuisine || "—"}<br />
         Cost: $${recipe.cost || "0.00"}<br />
+        Serves ${recipe.serving_size || recipe.servingSize || 1}<br />
         Protein: ${recipe.protein || "—"}g<br />
-        Prep Time: ${recipe.prepTime || "—"} min
+        Total Time: ${recipe.total_time ?? recipe.totalTime ?? recipe.preparation_time ?? recipe.prepTime ?? "—"} min
       </p>
     </div>
   `;

@@ -23,38 +23,28 @@
           <svg
             class="nav-logo-wordmark"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 180 76"
+            viewBox="0 0 190 64"
             aria-hidden="true"
           >
             <g fill="currentColor">
-              <ellipse cx="24" cy="10" rx="5.5" ry="7.5" />
-              <rect x="21.5" y="15" width="5" height="55" rx="2.5" />
-              <rect x="32" y="15" width="4" height="48" rx="2" />
+              <ellipse cx="11" cy="10.5" rx="5.5" ry="6.5" />
+              <rect x="9" y="16" width="4" height="36" rx="2" />
+              <rect x="23" y="4" width="3.5" height="31" rx="1.75" />
+              <rect x="20" y="35" width="9.5" height="3" rx="1" />
+              <rect x="20.5" y="38" width="2" height="14" rx="1" />
+              <rect x="24.25" y="38" width="2" height="14" rx="1" />
+              <rect x="28" y="38" width="2" height="14" rx="1" />
             </g>
-            <path
-              d="M30.5 63v7M34 63v7M37.5 63v7"
-              stroke="currentColor"
-              stroke-width="3.5"
-              stroke-linecap="round"
-              fill="none"
-            />
-            <path
-              d="M36 32c0-4-3.5-7-9-7s-9 3-9 6.5c0 3.5 3.5 5.5 9 6s9 2.5 9 6c0 3.5-3.5 6.5-9 6.5s-8.5-2.5-8.5-6"
-              stroke="currentColor"
-              stroke-width="5.5"
-              stroke-linecap="round"
-              fill="none"
-            />
             <text
-              x="48"
-              y="53"
+              x="44"
+              y="46"
               font-family="Nunito, Segoe UI, Arial, sans-serif"
               font-weight="500"
-              font-size="48"
+              font-size="42"
               fill="currentColor"
               letter-spacing="0.5"
             >
-              avery
+              Savery
             </text>
           </svg>
         </a>
@@ -73,35 +63,79 @@
           class="savery-search-input"
           placeholder="Search recipes..."
         />
-        <span class="filter-icon" aria-hidden="true">&#9776;</span>
+        <div class="filter-wrap">
+          <button
+            type="button"
+            id="filterToggleBtn"
+            class="filter-btn"
+            aria-expanded="false"
+            aria-controls="filterPanel"
+            aria-label="Filter recipes"
+          >
+            <svg
+              class="filter-btn-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+            </svg>
+            <span class="filter-active-dot hidden" id="filterActiveDot" aria-hidden="true"></span>
+          </button>
+          <div id="filterPanel" class="filter-panel hidden" role="region" aria-label="Recipe filters">
+            <div class="filter-panel-header">
+              <h3 class="filter-panel-title">Filters</h3>
+              <button type="button" id="filterClearBtn" class="filter-clear-btn">Clear all</button>
+            </div>
+            <div class="filter-group">
+              <span class="filter-group-label">Cuisine</span>
+              <div class="filter-options" id="filterCuisineOptions"></div>
+            </div>
+            <div class="filter-group">
+              <span class="filter-group-label">Meal</span>
+              <div class="filter-options" id="filterMealOptions"></div>
+            </div>
+            <div class="filter-group">
+              <span class="filter-group-label">Diet</span>
+              <div class="filter-options" id="filterDietOptions"></div>
+            </div>
+            <div class="filter-group">
+              <label class="filter-group-label" for="filterMaxTime">Max total time</label>
+              <select id="filterMaxTime" class="filter-select">
+                <option value="">Any time</option>
+                <option value="20">Under 20 min</option>
+                <option value="30">Under 30 min</option>
+                <option value="45">Under 45 min</option>
+                <option value="60">Under 60 min</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="cost-scale">
         <div class="cost-scale-header">
-          <label class="cost-scale-label" for="costScaleInput">Max cost</label>
-          <span class="cost-scale-value" id="costScaleValue">$30</span>
+          <label class="cost-scale-label" for="costScaleInput">Max cost per serving</label>
+          <span class="cost-scale-value" id="costScaleValue">—</span>
         </div>
         <input
           type="range"
           id="costScaleInput"
           class="cost-scale-slider"
           min="0"
-          max="30"
+          max="100"
           step="1"
-          value="30"
-          aria-valuemin="0"
-          aria-valuemax="30"
-          aria-valuenow="30"
+          value="100"
         />
-        <div class="cost-scale-ticks" aria-hidden="true">
-          <span>$0</span>
-          <span>$10</span>
-          <span>$20</span>
-          <span>$30</span>
-        </div>
+        <div class="cost-scale-ticks" id="costScaleTicks" aria-hidden="true"></div>
       </div>
 
-      <h2 class="discovery-heading" id="discoveryHeading">Under $30</h2>
+      <h2 class="discovery-heading" id="discoveryHeading">Recipes</h2>
 
       <div class="recipe-grid" id="recipesGrid"></div>
 

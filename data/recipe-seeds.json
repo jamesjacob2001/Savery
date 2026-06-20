@@ -1,0 +1,890 @@
+[
+  {
+    "name": "Tuna Salad Sandwich",
+    "ingredients": [
+      "1 can tuna in water, drained",
+      "2 tbsp mayonnaise",
+      "1 celery stalk, diced",
+      "2 slices bread",
+      "Lettuce leaves"
+    ],
+    "instructions": [
+      "Mix tuna, mayo, and celery in a bowl.",
+      "Season with salt and pepper.",
+      "Serve on bread with lettuce."
+    ],
+    "cuisine": "American",
+    "meal_type": "Lunch",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Dairy-free",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Overnight Oats with Banana",
+    "ingredients": [
+      "1/2 cup rolled oats",
+      "1/2 cup milk",
+      "1/2 mashed banana",
+      "1 tbsp peanut butter",
+      "1 tsp honey"
+    ],
+    "instructions": [
+      "Combine oats and milk in a jar; stir well.",
+      "Add mashed banana, peanut butter, and honey.",
+      "Refrigerate overnight and eat cold or warmed."
+    ],
+    "cuisine": "American",
+    "meal_type": "Breakfast",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Chickpea Curry",
+    "ingredients": [
+      "2 cans chickpeas, drained",
+      "1 can coconut milk",
+      "1 onion, diced",
+      "2 tbsp curry powder",
+      "2 cloves garlic, minced",
+      "1 tbsp oil",
+      "1 cup spinach"
+    ],
+    "instructions": [
+      "Sauté onion and garlic in oil until soft.",
+      "Stir in curry powder, then add chickpeas and coconut milk.",
+      "Simmer 15 minutes; stir in spinach until wilted."
+    ],
+    "cuisine": "Indian",
+    "meal_type": "Dinner",
+    "spice_level": "Medium",
+    "dietary_restrictions": "Vegan",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Shakshuka",
+    "ingredients": [
+      "1 tbsp olive oil",
+      "1/2 onion, diced",
+      "1 bell pepper, diced",
+      "1 can (14 oz) crushed tomatoes",
+      "4 eggs",
+      "1 tsp cumin",
+      "Salt and pepper"
+    ],
+    "instructions": [
+      "Sauté onion and pepper in olive oil until soft.",
+      "Add tomatoes and cumin; simmer 10 minutes.",
+      "Make wells in the sauce, crack in eggs, cover, and cook until whites set."
+    ],
+    "cuisine": "Middle Eastern",
+    "meal_type": "Breakfast",
+    "spice_level": "Medium",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Breakfast Burrito",
+    "ingredients": [
+      "2 large flour tortillas",
+      "4 scrambled eggs",
+      "1/2 cup black beans",
+      "1/2 cup shredded cheese",
+      "1/4 cup salsa"
+    ],
+    "instructions": [
+      "Warm tortillas and scramble eggs with a pinch of salt.",
+      "Divide beans, eggs, and cheese among tortillas.",
+      "Top with salsa, roll tightly, and toast seam-side down in a pan."
+    ],
+    "cuisine": "Mexican",
+    "meal_type": "Breakfast",
+    "spice_level": "Medium",
+    "dietary_restrictions": "None",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Beef Tacos",
+    "ingredients": [
+      "1 lb ground beef",
+      "8 small corn tortillas",
+      "1 packet taco seasoning",
+      "1 cup shredded lettuce",
+      "1 diced tomato",
+      "1/4 cup diced onion"
+    ],
+    "instructions": [
+      "Brown ground beef; drain fat and add taco seasoning with a splash of water.",
+      "Warm tortillas in a dry skillet.",
+      "Fill tortillas with beef, lettuce, tomato, and onion."
+    ],
+    "cuisine": "Mexican",
+    "meal_type": "Dinner",
+    "spice_level": "Medium",
+    "dietary_restrictions": "Dairy-free",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Greek Yogurt Parfait",
+    "ingredients": [
+      "1 cup plain Greek yogurt",
+      "1/2 cup granola",
+      "1/2 cup mixed berries",
+      "1 tbsp honey"
+    ],
+    "instructions": [
+      "Layer yogurt, granola, and berries in a glass or bowl.",
+      "Drizzle with honey.",
+      "Serve right away so granola stays crunchy."
+    ],
+    "cuisine": "Mediterranean",
+    "meal_type": "Breakfast",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Pad Thai",
+    "ingredients": [
+      "8 oz rice noodles",
+      "2 eggs",
+      "1 cup bean sprouts",
+      "3 tbsp peanut butter",
+      "2 tbsp soy sauce",
+      "1 tbsp lime juice",
+      "2 green onions"
+    ],
+    "instructions": [
+      "Soak noodles in hot water until tender; drain.",
+      "Scramble eggs in a pan; add noodles, peanut butter, soy sauce, and lime juice.",
+      "Toss with bean sprouts and green onions; serve warm."
+    ],
+    "cuisine": "Thai",
+    "meal_type": "Dinner",
+    "spice_level": "Medium",
+    "dietary_restrictions": "None",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Black Bean Soup",
+    "ingredients": [
+      "2 cans black beans",
+      "1 onion, diced",
+      "2 cloves garlic",
+      "2 cups vegetable broth",
+      "1 tsp cumin",
+      "1 lime, juiced",
+      "Cilantro for garnish"
+    ],
+    "instructions": [
+      "Sauté onion and garlic until fragrant.",
+      "Add beans, broth, and cumin; simmer 15 minutes.",
+      "Blend partially for texture; finish with lime juice and cilantro."
+    ],
+    "cuisine": "Mexican",
+    "meal_type": "Lunch",
+    "spice_level": "Medium",
+    "dietary_restrictions": "Vegan",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Coconut Rice with Mango",
+    "ingredients": [
+      "1 cup jasmine rice",
+      "1 cup coconut milk",
+      "1 cup water",
+      "2 tbsp sugar",
+      "1 ripe mango, sliced"
+    ],
+    "instructions": [
+      "Rinse rice and cook with coconut milk, water, and sugar.",
+      "Let rice rest 10 minutes off heat.",
+      "Serve warm with fresh mango slices."
+    ],
+    "cuisine": "Thai",
+    "meal_type": "Dessert",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegan",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Sheet Pan Sausage and Veggies",
+    "ingredients": [
+      "4 chicken sausages",
+      "2 cups baby potatoes, halved",
+      "2 cups broccoli florets",
+      "2 tbsp olive oil",
+      "1 tsp Italian seasoning",
+      "Salt and pepper"
+    ],
+    "instructions": [
+      "Toss potatoes and broccoli with oil and seasoning on a sheet pan.",
+      "Roast at 425°F for 15 minutes.",
+      "Add sausages and roast 15 more minutes until everything is browned."
+    ],
+    "cuisine": "American",
+    "meal_type": "Dinner",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Gluten-free",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Egg Fried Noodles",
+    "ingredients": [
+      "8 oz egg noodles",
+      "2 eggs",
+      "2 tbsp soy sauce",
+      "1 cup shredded cabbage",
+      "2 green onions",
+      "1 tbsp vegetable oil"
+    ],
+    "instructions": [
+      "Boil noodles until tender; drain.",
+      "Scramble eggs in a hot pan; add cabbage and noodles.",
+      "Season with soy sauce and toss with green onions."
+    ],
+    "cuisine": "Chinese",
+    "meal_type": "Dinner",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Hummus and Veggie Cups",
+    "ingredients": [
+      "1 cup hummus",
+      "1 cup carrot sticks",
+      "1 cup cucumber slices",
+      "1 cup bell pepper strips"
+    ],
+    "instructions": [
+      "Portion hummus into small containers.",
+      "Pack vegetable sticks alongside for dipping.",
+      "Keep refrigerated until ready to eat."
+    ],
+    "cuisine": "Mediterranean",
+    "meal_type": "Snack",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegan",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "One-Pot Chicken and Rice",
+    "ingredients": [
+      "1 lb chicken thighs, bone-in",
+      "1 cup long-grain rice",
+      "2 cups chicken broth",
+      "1 onion, diced",
+      "1 tsp garlic powder",
+      "1 tbsp olive oil"
+    ],
+    "instructions": [
+      "Brown chicken in olive oil; remove and set aside.",
+      "Sauté onion, then add rice and broth.",
+      "Nestle chicken on top, cover, and simmer 20 minutes until rice is tender."
+    ],
+    "cuisine": "American",
+    "meal_type": "Dinner",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Gluten-free",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Banana Bread",
+    "ingredients": [
+      "3 ripe bananas",
+      "1/3 cup melted butter",
+      "3/4 cup sugar",
+      "1 egg",
+      "1 tsp vanilla",
+      "1 tsp baking soda",
+      "Pinch of salt",
+      "1 1/2 cups flour"
+    ],
+    "instructions": [
+      "Mash bananas and mix with melted butter.",
+      "Stir in sugar, egg, and vanilla.",
+      "Fold in dry ingredients and bake at 350°F for 50-60 minutes."
+    ],
+    "cuisine": "American",
+    "meal_type": "Dessert",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Veggie Pizza on Tortilla",
+    "ingredients": [
+      "2 large flour tortillas",
+      "1/2 cup pizza sauce",
+      "1 cup shredded mozzarella",
+      "1/2 cup sliced mushrooms",
+      "1/4 cup sliced olives",
+      "1 tsp Italian seasoning"
+    ],
+    "instructions": [
+      "Spread sauce on tortillas and top with cheese and vegetables.",
+      "Bake at 425°F for 8-10 minutes until cheese melts.",
+      "Slice and serve hot."
+    ],
+    "cuisine": "Italian",
+    "meal_type": "Dinner",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Peanut Butter Banana Smoothie",
+    "ingredients": [
+      "1 frozen banana",
+      "2 tbsp peanut butter",
+      "1 cup milk",
+      "1/2 cup Greek yogurt",
+      "1 tsp honey"
+    ],
+    "instructions": [
+      "Add all ingredients to a blender.",
+      "Blend until smooth, adding ice if needed.",
+      "Serve immediately."
+    ],
+    "cuisine": "American",
+    "meal_type": "Breakfast",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Kimchi Fried Rice",
+    "ingredients": [
+      "2 cups cooked rice",
+      "1 cup chopped kimchi",
+      "2 tbsp kimchi juice",
+      "1 egg",
+      "1 tbsp sesame oil",
+      "2 green onions"
+    ],
+    "instructions": [
+      "Heat sesame oil and stir-fry kimchi for 2 minutes.",
+      "Add rice and kimchi juice; toss until heated through.",
+      "Top with a fried egg and sliced green onions."
+    ],
+    "cuisine": "Korean",
+    "meal_type": "Lunch",
+    "spice_level": "Spicy",
+    "dietary_restrictions": "None",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Caprese Sandwich",
+    "ingredients": [
+      "1 ciabatta roll",
+      "4 oz fresh mozzarella",
+      "1 large tomato, sliced",
+      "Fresh basil leaves",
+      "1 tbsp balsamic glaze",
+      "1 tbsp olive oil"
+    ],
+    "instructions": [
+      "Slice roll and drizzle with olive oil.",
+      "Layer mozzarella, tomato, and basil.",
+      "Finish with balsamic glaze and a pinch of salt."
+    ],
+    "cuisine": "Italian",
+    "meal_type": "Lunch",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Microwave Mug Omelette",
+    "ingredients": [
+      "2 large eggs",
+      "2 tbsp shredded cheddar cheese",
+      "1 tbsp diced bell pepper",
+      "1 tbsp diced onion",
+      "Pinch of salt and pepper"
+    ],
+    "instructions": [
+      "Whisk eggs with salt and pepper in a microwave-safe mug.",
+      "Stir in cheese, bell pepper, and onion.",
+      "Microwave on high for 60-90 seconds, stirring halfway, until set."
+    ],
+    "cuisine": "American",
+    "meal_type": "Breakfast",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Gluten-free",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Chicken Caesar Salad",
+    "ingredients": [
+      "2 cups romaine lettuce",
+      "1 grilled chicken breast, sliced",
+      "1/4 cup Caesar dressing",
+      "2 tbsp grated Parmesan",
+      "1/2 cup croutons"
+    ],
+    "instructions": [
+      "Chop romaine and toss with Caesar dressing.",
+      "Top with sliced chicken, Parmesan, and croutons.",
+      "Serve immediately."
+    ],
+    "cuisine": "American",
+    "meal_type": "Lunch",
+    "spice_level": "Mild",
+    "dietary_restrictions": "None",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Teriyaki Salmon Bowl",
+    "ingredients": [
+      "2 salmon fillets (5 oz each)",
+      "2 cups cooked rice",
+      "3 tbsp teriyaki sauce",
+      "1 cup steamed broccoli",
+      "1 tbsp sesame seeds"
+    ],
+    "instructions": [
+      "Pan-sear salmon skin-side down until crisp; flip and glaze with teriyaki.",
+      "Steam broccoli until bright green.",
+      "Serve salmon over rice with broccoli and sesame seeds."
+    ],
+    "cuisine": "Japanese",
+    "meal_type": "Dinner",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Gluten-free",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Ramen Upgrade Bowl",
+    "ingredients": [
+      "2 packs instant ramen",
+      "2 eggs",
+      "1 cup frozen mixed vegetables",
+      "2 green onions",
+      "1 tbsp soy sauce",
+      "1 tsp sesame oil"
+    ],
+    "instructions": [
+      "Boil noodles with seasoning packets and frozen vegetables.",
+      "Soft-boil or poach eggs separately.",
+      "Top bowls with eggs, green onions, soy sauce, and sesame oil."
+    ],
+    "cuisine": "Japanese",
+    "meal_type": "Dinner",
+    "spice_level": "Medium",
+    "dietary_restrictions": "None",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Spaghetti Aglio e Olio",
+    "ingredients": [
+      "12 oz spaghetti",
+      "6 cloves garlic, sliced",
+      "1/3 cup olive oil",
+      "1 tsp red pepper flakes",
+      "1/4 cup parsley",
+      "Salt"
+    ],
+    "instructions": [
+      "Cook spaghetti in salted water until al dente; reserve 1/2 cup pasta water.",
+      "Gently cook garlic in olive oil until fragrant.",
+      "Toss pasta with garlic oil, pepper flakes, parsley, and pasta water."
+    ],
+    "cuisine": "Italian",
+    "meal_type": "Dinner",
+    "spice_level": "Medium",
+    "dietary_restrictions": "Vegan",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Baked Mac and Cheese",
+    "ingredients": [
+      "8 oz elbow macaroni",
+      "2 cups shredded cheddar",
+      "2 tbsp butter",
+      "2 tbsp flour",
+      "2 cups milk",
+      "1/2 tsp mustard powder"
+    ],
+    "instructions": [
+      "Cook macaroni; drain.",
+      "Make a roux with butter and flour, whisk in milk until thickened.",
+      "Stir in cheese and mustard; combine with pasta and bake at 375°F for 20 minutes."
+    ],
+    "cuisine": "American",
+    "meal_type": "Dinner",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Chicken Quesadilla",
+    "ingredients": [
+      "2 large flour tortillas",
+      "1 cup cooked shredded chicken",
+      "1 cup shredded Mexican cheese",
+      "1/4 cup salsa",
+      "1 tbsp oil"
+    ],
+    "instructions": [
+      "Place cheese and chicken on one tortilla; top with second tortilla.",
+      "Cook in oiled skillet 2-3 minutes per side until cheese melts.",
+      "Cut into wedges and serve with salsa."
+    ],
+    "cuisine": "Mexican",
+    "meal_type": "Lunch",
+    "spice_level": "Medium",
+    "dietary_restrictions": "None",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Spicy Roasted Chickpeas",
+    "ingredients": [
+      "2 cans chickpeas, drained and dried",
+      "2 tbsp olive oil",
+      "1 tsp paprika",
+      "1/2 tsp cayenne",
+      "1/2 tsp garlic powder",
+      "Salt"
+    ],
+    "instructions": [
+      "Toss chickpeas with oil and spices.",
+      "Spread on a baking sheet in a single layer.",
+      "Roast at 400°F for 25-30 minutes, shaking pan halfway."
+    ],
+    "cuisine": "Indian",
+    "meal_type": "Snack",
+    "spice_level": "Spicy",
+    "dietary_restrictions": "Vegan",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Pesto Pasta",
+    "ingredients": [
+      "12 oz penne pasta",
+      "1/2 cup basil pesto",
+      "1/2 cup cherry tomatoes, halved",
+      "1/4 cup grated Parmesan",
+      "2 tbsp olive oil"
+    ],
+    "instructions": [
+      "Cook pasta until al dente; reserve 1/4 cup pasta water.",
+      "Toss pasta with pesto, tomatoes, and olive oil.",
+      "Add pasta water as needed and top with Parmesan."
+    ],
+    "cuisine": "Italian",
+    "meal_type": "Dinner",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Grilled Cheese and Tomato Soup",
+    "ingredients": [
+      "4 slices bread",
+      "4 slices cheddar cheese",
+      "2 tbsp butter",
+      "1 can tomato soup",
+      "1/2 cup milk"
+    ],
+    "instructions": [
+      "Butter bread and sandwich cheese between slices; grill until golden.",
+      "Heat tomato soup with milk on the stove.",
+      "Serve hot soup with sliced grilled cheese for dipping."
+    ],
+    "cuisine": "American",
+    "meal_type": "Lunch",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Avocado Toast with Egg",
+    "ingredients": [
+      "2 slices whole wheat bread",
+      "1 ripe avocado",
+      "2 eggs",
+      "1 tsp lemon juice",
+      "Salt, pepper, and red pepper flakes"
+    ],
+    "instructions": [
+      "Toast bread until golden.",
+      "Mash avocado with lemon juice, salt, and pepper; spread on toast.",
+      "Fry or poach eggs and place on top; finish with red pepper flakes."
+    ],
+    "cuisine": "American",
+    "meal_type": "Breakfast",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Energy Bites",
+    "ingredients": [
+      "1 cup rolled oats",
+      "1/2 cup peanut butter",
+      "1/3 cup honey",
+      "1/2 cup mini chocolate chips",
+      "1 tsp vanilla"
+    ],
+    "instructions": [
+      "Mix all ingredients in a bowl until combined.",
+      "Roll into 12 small balls.",
+      "Refrigerate at least 30 minutes before serving."
+    ],
+    "cuisine": "American",
+    "meal_type": "Snack",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Popcorn Trail Mix",
+    "ingredients": [
+      "4 cups popped popcorn",
+      "1/2 cup pretzels",
+      "1/4 cup dried cranberries",
+      "1/4 cup chocolate chips",
+      "2 tbsp melted coconut oil"
+    ],
+    "instructions": [
+      "Toss popcorn and pretzels with melted coconut oil.",
+      "Stir in cranberries and chocolate chips.",
+      "Store in an airtight container for up to 3 days."
+    ],
+    "cuisine": "American",
+    "meal_type": "Snack",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Vegetable Fried Rice",
+    "ingredients": [
+      "2 cups cooked rice, chilled",
+      "1 cup mixed vegetables",
+      "2 eggs, beaten",
+      "2 tbsp soy sauce",
+      "1 tbsp vegetable oil",
+      "2 green onions, sliced"
+    ],
+    "instructions": [
+      "Scramble eggs in a hot wok; set aside.",
+      "Stir-fry vegetables in oil until tender.",
+      "Add rice and soy sauce; toss with eggs and green onions."
+    ],
+    "cuisine": "Chinese",
+    "meal_type": "Lunch",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegetarian",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Teriyaki Tilapia Bowl",
+    "ingredients": [
+      "2 tilapia fillets (5 oz each)",
+      "2 cups cooked rice",
+      "3 tbsp teriyaki sauce",
+      "1 cup steamed broccoli",
+      "1 tbsp sesame seeds"
+    ],
+    "instructions": [
+      "Pan-sear salmon skin-side down until crisp; flip and glaze with teriyaki.",
+      "Steam broccoli until bright green.",
+      "Serve salmon over rice with broccoli and sesame seeds."
+    ],
+    "cuisine": "Japanese",
+    "meal_type": "Dinner",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Gluten-free",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Microwave Baked Apple",
+    "ingredients": [
+      "2 apples, cored",
+      "2 tbsp brown sugar",
+      "1 tsp cinnamon",
+      "1 tbsp raisins",
+      "1 tbsp water"
+    ],
+    "instructions": [
+      "Fill apple centers with sugar, cinnamon, and raisins.",
+      "Add water to a microwave-safe dish and place apples inside.",
+      "Microwave 4-6 minutes until tender."
+    ],
+    "cuisine": "American",
+    "meal_type": "Dessert",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegan",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Lentil Soup",
+    "ingredients": [
+      "1 cup dried lentils",
+      "1 carrot, diced",
+      "1 celery stalk, diced",
+      "1 onion, diced",
+      "4 cups vegetable broth",
+      "1 tsp cumin",
+      "2 tbsp olive oil"
+    ],
+    "instructions": [
+      "Sauté onion, carrot, and celery in olive oil.",
+      "Add lentils, broth, and cumin; bring to a boil.",
+      "Simmer 25-30 minutes until lentils are tender."
+    ],
+    "cuisine": "Mediterranean",
+    "meal_type": "Dinner",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegan",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Falafel Pita",
+    "ingredients": [
+      "1 can chickpeas, drained",
+      "1/4 cup flour",
+      "2 cloves garlic",
+      "1 tsp cumin",
+      "2 pita breads",
+      "1/2 cup tahini sauce",
+      "Shredded lettuce and tomato"
+    ],
+    "instructions": [
+      "Pulse chickpeas, garlic, cumin, and flour in a food processor; form patties.",
+      "Pan-fry patties until golden on both sides.",
+      "Stuff pita with falafel, lettuce, tomato, and tahini."
+    ],
+    "cuisine": "Middle Eastern",
+    "meal_type": "Lunch",
+    "spice_level": "Medium",
+    "dietary_restrictions": "Vegan",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "BBQ Chicken Rice Bowl",
+    "ingredients": [
+      "2 chicken thighs",
+      "2 cups cooked rice",
+      "1/4 cup BBQ sauce",
+      "1 cup corn",
+      "1/2 cup coleslaw mix"
+    ],
+    "instructions": [
+      "Bake chicken thighs with BBQ sauce at 400°F for 25 minutes.",
+      "Shred chicken and serve over rice.",
+      "Top with corn and quick coleslaw."
+    ],
+    "cuisine": "American",
+    "meal_type": "Dinner",
+    "spice_level": "Medium",
+    "dietary_restrictions": "Gluten-free",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Miso Soup with Tofu",
+    "ingredients": [
+      "4 cups water",
+      "2 tbsp miso paste",
+      "1/2 block firm tofu, cubed",
+      "2 green onions, sliced",
+      "1 sheet nori, torn"
+    ],
+    "instructions": [
+      "Bring water to a simmer; whisk in miso paste off heat.",
+      "Add tofu and nori; warm gently without boiling.",
+      "Garnish with green onions and serve."
+    ],
+    "cuisine": "Japanese",
+    "meal_type": "Lunch",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegan",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Chicken Stir-Fry",
+    "ingredients": [
+      "1 lb chicken breast, sliced",
+      "2 cups mixed stir-fry vegetables",
+      "3 tbsp soy sauce",
+      "1 tbsp cornstarch",
+      "2 cloves garlic",
+      "2 tbsp vegetable oil"
+    ],
+    "instructions": [
+      "Toss chicken with cornstarch and a splash of soy sauce.",
+      "Stir-fry chicken in hot oil until cooked; remove.",
+      "Stir-fry vegetables and garlic; return chicken and remaining soy sauce."
+    ],
+    "cuisine": "Chinese",
+    "meal_type": "Dinner",
+    "spice_level": "Medium",
+    "dietary_restrictions": "Dairy-free",
+    "serving_size": 1,
+    "rating": 4.2
+  },
+  {
+    "name": "Hummus Veggie Wrap",
+    "ingredients": [
+      "1 large tortilla",
+      "1/3 cup hummus",
+      "1/2 cup shredded lettuce",
+      "1/4 cup diced cucumber",
+      "1/4 cup diced tomato",
+      "2 tbsp olives"
+    ],
+    "instructions": [
+      "Spread hummus evenly over the tortilla.",
+      "Layer vegetables down the center.",
+      "Roll tightly and slice in half."
+    ],
+    "cuisine": "Mediterranean",
+    "meal_type": "Lunch",
+    "spice_level": "Mild",
+    "dietary_restrictions": "Vegan",
+    "serving_size": 1,
+    "rating": 4.2
+  }
+]

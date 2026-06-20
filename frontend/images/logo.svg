@@ -1,23 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 76" role="img" aria-label="Savery logo">
-  <!-- Spoon — left vertical stroke of $ -->
-  <ellipse cx="24" cy="10" rx="4.5" ry="6.5" fill="#4caf50" />
-  <rect x="22.25" y="15" width="3.5" height="55" rx="1.75" fill="#4caf50" />
-
-  <!-- Fork — right vertical stroke, tines pointing down -->
-  <rect x="32.75" y="15" width="2.5" height="48" rx="1.25" fill="#4caf50" />
-  <path
-    d="M31 63v7M34 63v7M37 63v7"
-    stroke="#4caf50"
-    stroke-width="2.5"
-    stroke-linecap="round"
-  />
-
-  <!-- Small S wrapped around both strokes (drawn on top) -->
-  <path
-    d="M36 32c0-4-3.5-7-9-7s-9 3-9 6.5c0 3.5 3.5 5.5 9 6s9 2.5 9 6c0 3.5-3.5 6.5-9 6.5s-8.5-2.5-8.5-6"
-    stroke="#4caf50"
-    stroke-width="3.5"
-    stroke-linecap="round"
-    fill="none"
-  />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 64" role="img" aria-label="Savery utensils">
+  <g fill="#388e3c">
+    <ellipse cx="11" cy="10.5" rx="5.5" ry="6.5" />
+    <rect x="9" y="16" width="4" height="36" rx="2" />
+    <rect x="23" y="4" width="3.5" height="31" rx="1.75" />
+    <rect x="20" y="35" width="9.5" height="3" rx="1" />
+    <rect x="20.5" y="38" width="2" height="14" rx="1" />
+    <rect x="24.25" y="38" width="2" height="14" rx="1" />
+    <rect x="28" y="38" width="2" height="14" rx="1" />
+  </g>
 </svg>
