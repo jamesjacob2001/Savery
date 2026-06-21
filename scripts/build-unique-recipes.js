@@ -1,7 +1,8 @@
 /**
- * Builds a dataset of 500 unique college-budget recipes.
+ * Builds a dataset of 1000 unique college-budget recipes.
  * Run: node scripts/build-unique-recipes.js
  * Then: node scripts/fix-recipes-data.js
+ * Then: node scripts/seed-mongodb.js
  */
 import { readFileSync, writeFileSync } from "fs";
 import { fileURLToPath } from "url";
@@ -32,7 +33,7 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const RECIPES_PATH = join(__dirname, "../data/recipes.json");
 const SEEDS_PATH = join(__dirname, "../data/recipe-seeds.json");
-const TARGET_COUNT = 500;
+const TARGET_COUNT = 1000;
 
 function recipeKey(recipe) {
   return JSON.stringify({

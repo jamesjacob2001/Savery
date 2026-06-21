@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node ./node_modules/nodemon/bin/nodemon.js backend.js",
+    "seed": "node scripts/seed-mongodb.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
