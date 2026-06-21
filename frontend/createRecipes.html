@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Savery - Create a Recipe</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <nav class="savery-nav">
+      <div class="nav-left">
+        <a href="createRecipes.html" class="nav-btn nav-btn--active">Create a Recipe</a>
+        <a href="planner.html" class="nav-btn">Plan Your Meals</a>
+      </div>
+      <div class="nav-center">
+        <a href="index.html" class="nav-logo" aria-label="Savery">
+          <svg
+            class="nav-logo-wordmark"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 190 64"
+            aria-hidden="true"
+          >
+            <g fill="currentColor">
+              <ellipse cx="11" cy="10.5" rx="5.5" ry="6.5" />
+              <rect x="9" y="16" width="4" height="36" rx="2" />
+              <rect x="23" y="4" width="3.5" height="31" rx="1.75" />
+              <rect x="20" y="35" width="9.5" height="3" rx="1" />
+              <rect x="20.5" y="38" width="2" height="14" rx="1" />
+              <rect x="24.25" y="38" width="2" height="14" rx="1" />
+              <rect x="28" y="38" width="2" height="14" rx="1" />
+            </g>
+            <text
+              x="44"
+              y="46"
+              font-family="Nunito, Segoe UI, Arial, sans-serif"
+              font-weight="500"
+              font-size="42"
+              fill="currentColor"
+              letter-spacing="0.5"
+            >
+              Savery
+            </text>
+          </svg>
+        </a>
+      </div>
+      <div class="nav-right">
+        <a href="favorites.html" class="nav-btn">Favorites</a>
+        <span class="nav-heart">&#9829;</span>
+      </div>
+    </nav>
+
+    <main class="create-recipe-main">
+      <h2 class="create-recipe-heading">Submit a Recipe Form</h2>
+
+      <form id="createRecipeForm" class="create-recipe-form" novalidate>
+        <div class="form-row">
+          <label class="form-label" for="recipeName">
+            Name of Recipe <span class="form-required">*</span>
+          </label>
+          <input
+            type="text"
+            id="recipeName"
+            name="name"
+            class="form-input"
+            required
+          />
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="recipeIngredients">
+            Ingredients <span class="form-required">*</span>
+          </label>
+          <textarea
+            id="recipeIngredients"
+            name="ingredients"
+            class="form-textarea"
+            rows="5"
+            placeholder="One ingredient per line"
+            required
+          ></textarea>
+          <span class="form-hint form-hint--error hidden" id="ingredientsHint"></span>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="recipeInstructions">
+            Instructions <span class="form-required">*</span>
+          </label>
+          <textarea
+            id="recipeInstructions"
+            name="instructions"
+            class="form-textarea"
+            rows="5"
+            placeholder="One step per line"
+            required
+          ></textarea>
+          <span class="form-hint form-hint--error hidden" id="instructionsHint"></span>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="recipeCost">
+            Cost <span class="form-required">*</span>
+          </label>
+          <input
+            type="number"
+            id="recipeCost"
+            name="cost"
+            class="form-input"
+            min="0"
+            step="0.01"
+            required
+          />
+          <span class="form-hint">Total cost for the whole recipe (USD)</span>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="recipePrepTime">
+            Prep Time <span class="form-required">*</span>
+          </label>
+          <input
+            type="number"
+            id="recipePrepTime"
+            name="preparation_time"
+            class="form-input"
+            min="0"
+            step="1"
+            required
+          />
+          <span class="form-hint">Minutes</span>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="recipeImage">Image of Meal</label>
+          <input
+            type="url"
+            id="recipeImage"
+            name="image_url"
+            class="form-input"
+            placeholder="https://..."
+          />
+        </div>
+
+        <fieldset class="form-fieldset">
+          <legend class="form-fieldset-legend">For Recipe Discovery</legend>
+
+          <div class="form-row">
+            <label class="form-label" for="recipeCookTime">Cook Time</label>
+            <input
+              type="number"
+              id="recipeCookTime"
+              name="cook_time"
+              class="form-input"
+              min="0"
+              step="1"
+              value="0"
+            />
+            <span class="form-hint">Minutes</span>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="recipeServings">Servings</label>
+            <input
+              type="number"
+              id="recipeServings"
+              name="serving_size"
+              class="form-input"
+              min="1"
+              step="1"
+              value="1"
+            />
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="recipeCuisine">
+              Cuisine <span class="form-required">*</span>
+            </label>
+            <select id="recipeCuisine" name="cuisine" class="form-select" required>
+              <option value="">Select cuisine</option>
+              <option>American</option>
+              <option>Asian</option>
+              <option>British</option>
+              <option>Chinese</option>
+              <option>French</option>
+              <option>Indian</option>
+              <option>Italian</option>
+              <option>Japanese</option>
+              <option>Korean</option>
+              <option>Mediterranean</option>
+              <option>Mexican</option>
+              <option>Middle Eastern</option>
+              <option>Thai</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="recipeMealType">
+              Meal <span class="form-required">*</span>
+            </label>
+            <select id="recipeMealType" name="meal_type" class="form-select" required>
+              <option value="">Select meal</option>
+              <option>Breakfast</option>
+              <option>Lunch</option>
+              <option>Dinner</option>
+              <option>Snack</option>
+              <option>Side</option>
+              <option>Dessert</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="recipeProtein">
+              Protein (g) <span class="form-required">*</span>
+            </label>
+            <input
+              type="number"
+              id="recipeProtein"
+              name="protein"
+              class="form-input"
+              min="0"
+              step="1"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="recipeDiet">Diet</label>
+            <select id="recipeDiet" name="dietary_restrictions" class="form-select">
+              <option>None</option>
+              <option>Vegetarian</option>
+              <option>Vegan</option>
+              <option>Gluten-free</option>
+              <option>Pescatarian</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="recipeSpice">Spice Level</label>
+            <select id="recipeSpice" name="spice_level" class="form-select">
+              <option>Mild</option>
+              <option>Medium</option>
+              <option>Hot</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <p class="form-message form-message--error hidden" id="formError"></p>
+        <p class="form-message form-message--success hidden" id="formSuccess"></p>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-savery-green" id="submitBtn">
+            Submit
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <script type="module" src="./js/createRecipePage.js"></script>
+  </body>
+</html>

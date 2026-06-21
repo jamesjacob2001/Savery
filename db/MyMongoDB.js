@@ -30,5 +30,35 @@ export default function SaveryMongoDB({
     }
   };
 
+  me.getNextRecipeId = async () => {
+    const { client, collection } = await connect();
+    try {
+      const top = await collection
+        .find({})
+        .sort({ id: -1 })
+        .limit(1)
+        .toArray();
+      return top.length ? Number(top[0].id) + 1 : 1;
+    } catch (error) {
+      console.error("Error getting next recipe id", error);
+      throw error;
+    } finally {
+      await client.close();
+    }
+  };
+
+  me.createRecipe = async (recipeDoc) => {
+    const { client, collection } = await connect();
+    try {
+      const result = await collection.insertOne(recipeDoc);
+      return { ...recipeDoc, _id: result.insertedId };
+    } catch (error) {
+      console.error("Error creating recipe", error);
+      throw error;
+    } finally {
+      await client.close();
+    }
+  };
+
   return me;
 }

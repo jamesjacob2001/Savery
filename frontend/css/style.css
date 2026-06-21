@@ -908,3 +908,125 @@ a {
   float: right;
   color: var(--text-muted);
 }
+
+/* ============================================================
+   CREATE RECIPE PAGE
+   ============================================================ */
+.create-recipe-main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.create-recipe-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.create-recipe-form {
+  background-color: var(--white);
+  border: 1px solid var(--border-grey);
+  padding: 24px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 8px 16px;
+  align-items: start;
+  margin-bottom: 16px;
+}
+
+.form-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding-top: 8px;
+  text-align: right;
+}
+
+.form-required {
+  color: var(--red-heart);
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border-grey);
+  border-radius: 0;
+  font: inherit;
+  font-size: 0.9rem;
+  background-color: var(--white);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-hint {
+  grid-column: 2;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: -8px;
+}
+
+.form-hint--error {
+  color: var(--red-heart);
+}
+
+.form-fieldset {
+  border: 1px solid var(--border-grey);
+  padding: 16px;
+  margin: 20px 0;
+}
+
+.form-fieldset-legend {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0 6px;
+}
+
+.form-message {
+  margin: 12px 0 0;
+  font-size: 0.9rem;
+}
+
+.form-message--error {
+  color: var(--red-heart);
+}
+
+.form-message--success {
+  color: var(--green-dark);
+}
+
+.form-message a {
+  color: var(--green-dark);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-label {
+    text-align: left;
+    padding-top: 0;
+  }
+
+  .form-hint {
+    grid-column: 1;
+    margin-top: 0;
+  }
+}
