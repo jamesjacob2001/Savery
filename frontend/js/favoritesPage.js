@@ -6,7 +6,6 @@
 
 // localStorage key shared with the recipe discovery page (Melissa's side)
 // When Melissa adds a save button on recipePage.js she will write to this key
-const FAVORITES_KEY = "savery_favorites";
 
 // ── State ──────────────────────────────────────────────────────────────────
 
@@ -16,33 +15,34 @@ let favorites = [];
 // ── On Page Load ───────────────────────────────────────────────────────────
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadFavorites();   // pull saved recipes from localStorage
-  renderCards();     // display them as cards
-
-  // Live search — filter cards as user types
   document
     .getElementById("favSearchInput")
     .addEventListener("input", handleSearch);
+
+  loadFavorites();
 });
 
 // ── Load & Save ────────────────────────────────────────────────────────────
 
-/** Reads the favorites array from localStorage */
-function loadFavorites() {
-  const stored = localStorage.getItem(FAVORITES_KEY);
-  if (stored) {
-    try {
-      favorites = JSON.parse(stored);
-    } catch {
-      favorites = [];
+/** Reads the favorites array from MongoDB */
+async function loadFavorites() {
+  try {
+    const response = await fetch("/api/favorites");
+
+    if (!response.ok) {
+      throw new Error("Failed to load favorites");
     }
+
+    const data = await response.json();
+    favorites = data.favorites || [];
+    renderCards();
+  } catch (error) {
+    console.error("Error loading favorites", error);
+    favorites = [];
+    renderCards();
   }
 }
 
-/** Persists the current favorites array back to localStorage */
-function persistFavorites() {
-  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
-}
 
 // ── Render ─────────────────────────────────────────────────────────────────
 
@@ -79,12 +79,13 @@ function buildCard(recipe) {
   card.className = "recipe-card";
   card.dataset.id = recipe.id;
 
-  // Use a placeholder image if no image URL is available
-  const imgSrc = recipe.image || "https://placehold.co/300x150?text=No+Image";
+
+  const imgSrc =
+    recipe.image_url || recipe.image || "https://placehold.co/300x150?text=No+Image";
 
   card.innerHTML = `
     <!-- Filled heart button — clicking removes from favorites -->
-    <button class="card-heart-btn" aria-label="Remove from favorites">&#9829;</button>
+    <button class="card-heart-btn card-heart-btn--saved" aria-label="Remove from favorites">&#9829;</button>
 
     <!-- Recipe image -->
     <img class="card-img" src="${imgSrc}" alt="${recipe.name}" />
@@ -114,12 +115,22 @@ function buildCard(recipe) {
 
 /**
  * Removes a recipe from favorites by its id.
- * Updates localStorage and re-renders the grid.
  */
-function unsaveRecipe(id) {
-  favorites = favorites.filter((r) => r.id !== id);
-  persistFavorites();
-  renderCards();
+async function unsaveRecipe(id) {
+  try {
+    const response = await fetch(`/api/favorites/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to remove favorite");
+    }
+
+    favorites = favorites.filter((recipe) => recipe.id !== id);
+    renderCards();
+  } catch (error) {
+    console.error("Error removing favorite", error);
+  }
 }
 
 // ── Search ─────────────────────────────────────────────────────────────────
