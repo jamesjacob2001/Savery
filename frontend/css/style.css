@@ -159,7 +159,26 @@ a {
   position: relative;
   align-self: start;
   border: 2px solid var(--white);
+}
+
+.recipe-card-toggle {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  text-align: left;
   cursor: pointer;
+  font: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.recipe-card-toggle:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
 }
 
 .recipe-card:hover {
@@ -175,6 +194,7 @@ a {
   position: absolute;
   top: 8px;
   right: 8px;
+  z-index: 2;
   background: none;
   border: none;
   font-size: 2rem;
@@ -361,7 +381,7 @@ a {
 }
 
 .card-cost-breakdown {
-  margin-top: 10px;
+  margin: 10px 12px 12px;
   font-size: 0.78rem;
   color: var(--text-muted);
 }

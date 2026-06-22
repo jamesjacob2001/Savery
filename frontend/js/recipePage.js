@@ -359,6 +359,9 @@ function buildLeftoverSectionHtml(sourceRecipe) {
 function buildRecipeDetailPanel(recipe) {
   const panel = document.createElement("div");
   panel.className = "recipe-detail-panel";
+  panel.id = `recipe-detail-${recipe.id}`;
+  panel.setAttribute("role", "region");
+  panel.setAttribute("aria-label", `${recipe.name} details`);
 
   const prep = recipe.preparation_time;
   const cook = recipe.cook_time;
@@ -391,13 +394,8 @@ function buildRecipeDetailPanel(recipe) {
     ${buildLeftoverSectionHtml(recipe)}
   `;
 
-  panel.addEventListener("click", (event) => {
-    event.stopPropagation();
-  });
-
   panel.querySelectorAll(".leftover-rec-btn").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.stopPropagation();
+    button.addEventListener("click", () => {
       selectRecipe(Number(button.dataset.id), true);
     });
   });
@@ -411,6 +409,10 @@ function updateSelectionUI() {
     card.querySelectorAll(".recipe-detail-panel").forEach((panel) => {
       panel.remove();
     });
+    const toggle = card.querySelector(".recipe-card-toggle");
+    if (toggle) {
+      toggle.setAttribute("aria-expanded", "false");
+    }
   });
 
   if (selectedRecipeId == null) {
@@ -428,6 +430,10 @@ function updateSelectionUI() {
   }
 
   card.classList.add("recipe-card--selected");
+  const toggle = card.querySelector(".recipe-card-toggle");
+  if (toggle) {
+    toggle.setAttribute("aria-expanded", "true");
+  }
   card.appendChild(buildRecipeDetailPanel(recipe));
   card.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
@@ -489,7 +495,7 @@ function buildCard(recipe) {
   const col = document.createElement("div");
   col.className = "col-sm-6 col-md-4 col-lg-3";
 
-  const card = document.createElement("div");
+  const card = document.createElement("article");
   card.className = "card recipe-card h-100 border-0";
   card.dataset.id = recipe.id;
 
@@ -497,30 +503,39 @@ function buildCard(recipe) {
     recipe.image_url || "https://placehold.co/300x150?text=No+Image";
 
   const isSaved = savedRecipeIds.has(recipe.id);
+  const detailPanelId = `recipe-detail-${recipe.id}`;
 
   card.innerHTML = `
     <button
       class="card-heart-btn ${isSaved ? "card-heart-btn--saved" : ""}"
       type="button"
-      aria-label="Save to favorites"
+      aria-label="${isSaved ? "Remove from favorites" : "Save to favorites"}"
     >
       &#9829;
     </button>
-    <img class="card-img-top" src="${imgSrc}" alt="${recipe.name}" />
-    <div class="card-body">
-      <h3 class="card-title h6">${recipe.name}</h3>
-      <p class="card-meta mb-0">
-        Cuisine: ${recipe.cuisine || "—"}<br />
-        ${buildCostMetaHtml(recipe)}<br />
-        Serves ${getServingSize(recipe)}<br />
-        Protein: ${recipe.protein ?? "—"}g<br />
-        Total Time: ${getTotalTime(recipe) ?? "—"} min
-      </p>
-      ${buildCostBreakdownHtml(recipe)}
-    </div>
+    <button
+      type="button"
+      class="recipe-card-toggle"
+      aria-expanded="false"
+      aria-controls="${detailPanelId}"
+    >
+      <img class="card-img-top" src="${imgSrc}" alt="" />
+      <div class="card-body">
+        <h3 class="card-title h6">${recipe.name}</h3>
+        <p class="card-meta mb-0">
+          Cuisine: ${recipe.cuisine || "—"}<br />
+          ${buildCostMetaHtml(recipe)}<br />
+          Serves ${getServingSize(recipe)}<br />
+          Protein: ${recipe.protein ?? "—"}g<br />
+          Total Time: ${getTotalTime(recipe) ?? "—"} min
+        </p>
+      </div>
+    </button>
+    ${buildCostBreakdownHtml(recipe)}
   `;
 
-  card.addEventListener("click", () => {
+  const toggle = card.querySelector(".recipe-card-toggle");
+  toggle.addEventListener("click", () => {
     selectRecipe(recipe.id);
   });
 
@@ -530,13 +545,6 @@ function buildCard(recipe) {
     event.stopPropagation();
     await toggleFavorite(recipe.id, heartButton);
   });
-
-  const breakdown = card.querySelector(".card-cost-breakdown");
-  if (breakdown) {
-    breakdown.addEventListener("click", (event) => {
-      event.stopPropagation();
-    });
-  }
 
   col.appendChild(card);
   return col;
