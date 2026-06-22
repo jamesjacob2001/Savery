@@ -164,9 +164,13 @@ a {
   background: none;
   border: none;
   font-size: 2rem;
-  color: var(--red-heart);
+  color: var(--text-muted);
   cursor: pointer;
   line-height: 1;
+}
+
+.card-heart-btn--saved {
+  color: var(--red-heart);
 }
 
 /* Recipe image placeholder / actual image */
