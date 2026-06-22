@@ -1,6 +1,7 @@
 import express from "express";
 import recipesRouter from "./routes/recipeApi.js";
 import favoritesRouter from "./routes/favoritesApi.js";
+import plannerRouter from "./routes/plannerApi.js";
 
 console.log("Savery server starting...");
 console.log("Hello from the backend...");
@@ -14,7 +15,7 @@ app.use(express.json());
 app.use(express.static("frontend"));
 
 app.use("/api/recipes", recipesRouter);
-// app.use("/api/planner", plannerRouter);
+app.use("/api/planner", plannerRouter);
 app.use("/api/favorites", favoritesRouter);
 
 // this function is being called by express to start the server
