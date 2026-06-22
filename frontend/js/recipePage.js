@@ -6,6 +6,7 @@ import {
 
 let allRecipes = [];
 let selectedRecipeId = null;
+let costScaleBounds = { minCents: 0, maxCents: 100 };
 
 const filterState = {
   cuisines: new Set(),
@@ -532,13 +533,50 @@ function getCostBounds(recipes) {
   return { min, max };
 }
 
-function getSliderMaxCost() {
-  return Number(document.getElementById("costScaleInput").value) / 100;
+function getSliderCosts() {
+  const minInput = document.getElementById("costScaleMinInput");
+  const maxInput = document.getElementById("costScaleMaxInput");
+  let minCents = Number(minInput.value);
+  let maxCents = Number(maxInput.value);
+
+  if (minCents > maxCents) {
+    if (document.activeElement === minInput) {
+      maxCents = minCents;
+      maxInput.value = String(minCents);
+    } else {
+      minCents = maxCents;
+      minInput.value = String(maxCents);
+    }
+  }
+
+  return {
+    min: minCents / 100,
+    max: maxCents / 100,
+  };
+}
+
+function updateCostScaleTrack() {
+  const { minCents, maxCents } = costScaleBounds;
+  const minInput = document.getElementById("costScaleMinInput");
+  const maxInput = document.getElementById("costScaleMaxInput");
+  const track = document.getElementById("costScaleTrack");
+  const span = maxCents - minCents;
+
+  if (span <= 0) {
+    return;
+  }
+
+  const left = ((Number(minInput.value) - minCents) / span) * 100;
+  const right = 100 - ((Number(maxInput.value) - minCents) / span) * 100;
+
+  track.style.setProperty("--range-left", `${left}%`);
+  track.style.setProperty("--range-right", `${right}%`);
 }
 
 function initializeCostScale(recipes) {
   const { min, max } = getCostBounds(recipes);
-  const slider = document.getElementById("costScaleInput");
+  const minInput = document.getElementById("costScaleMinInput");
+  const maxInput = document.getElementById("costScaleMaxInput");
   let minCents = Math.floor(min * 100);
   let maxCents = Math.ceil(max * 100);
 
@@ -546,13 +584,20 @@ function initializeCostScale(recipes) {
     maxCents = minCents + 1;
   }
 
-  slider.min = String(minCents);
-  slider.max = String(maxCents);
-  slider.step = "1";
-  slider.value = String(maxCents);
-  slider.setAttribute("aria-valuemin", minCents);
-  slider.setAttribute("aria-valuemax", maxCents);
-  slider.setAttribute("aria-valuenow", maxCents);
+  costScaleBounds = { minCents, maxCents };
+
+  for (const input of [minInput, maxInput]) {
+    input.min = String(minCents);
+    input.max = String(maxCents);
+    input.step = "1";
+    input.setAttribute("aria-valuemin", minCents);
+    input.setAttribute("aria-valuemax", maxCents);
+  }
+
+  minInput.value = String(minCents);
+  maxInput.value = String(maxCents);
+  minInput.setAttribute("aria-valuenow", minCents);
+  maxInput.setAttribute("aria-valuenow", maxCents);
 
   const ticksEl = document.getElementById("costScaleTicks");
   const tickCount = 4;
@@ -566,6 +611,8 @@ function initializeCostScale(recipes) {
   ticksEl.innerHTML = tickLabels
     .map((label) => `<span>${label}</span>`)
     .join("");
+
+  updateCostScaleTrack();
 }
 
 function getFilteredRecipes() {
@@ -573,7 +620,7 @@ function getFilteredRecipes() {
     .getElementById("recipeSearchInput")
     .value.trim()
     .toLowerCase();
-  const maxCost = getSliderMaxCost();
+  const { min: minCost, max: maxCost } = getSliderCosts();
 
   return allRecipes.filter((recipe) => {
     const matchesSearch =
@@ -583,26 +630,31 @@ function getFilteredRecipes() {
 
     const perServing = getPerServingCost(recipe);
     const matchesCost =
-      perServing == null || perServing <= maxCost;
+      perServing == null ||
+      (perServing >= minCost && perServing <= maxCost);
 
     return matchesSearch && matchesCost && recipeMatchesFilters(recipe);
   });
 }
 
-function updateCostDisplay(maxCost) {
+function updateCostDisplay(minCost, maxCost) {
   document.getElementById("costScaleValue").textContent =
-    `${formatCostAmount(maxCost)}/serving`;
+    `${formatCostAmount(minCost)} – ${formatCostAmount(maxCost)}`;
   document.getElementById("discoveryHeading").textContent =
-    `Under ${formatCostAmount(maxCost)} per serving`;
-  document.getElementById("costScaleInput").setAttribute(
-    "aria-valuenow",
-    Math.round(maxCost * 100)
-  );
+    `${formatCostAmount(minCost)} – ${formatCostAmount(maxCost)} per serving`;
+
+  document
+    .getElementById("costScaleMinInput")
+    .setAttribute("aria-valuenow", Math.round(minCost * 100));
+  document
+    .getElementById("costScaleMaxInput")
+    .setAttribute("aria-valuenow", Math.round(maxCost * 100));
 }
 
 function applyFilters() {
-  const maxCost = getSliderMaxCost();
-  updateCostDisplay(maxCost);
+  const { min: minCost, max: maxCost } = getSliderCosts();
+  updateCostScaleTrack();
+  updateCostDisplay(minCost, maxCost);
   renderCards(getFilteredRecipes());
 }
 
@@ -662,7 +714,11 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("input", handleSearch);
 
   document
-    .getElementById("costScaleInput")
+    .getElementById("costScaleMinInput")
+    .addEventListener("input", handleCostChange);
+
+  document
+    .getElementById("costScaleMaxInput")
     .addEventListener("input", handleCostChange);
 
   setupFilterControls();

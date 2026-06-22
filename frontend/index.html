@@ -120,18 +120,32 @@
 
       <div class="cost-scale">
         <div class="cost-scale-header">
-          <label class="cost-scale-label" for="costScaleInput">Max cost per serving</label>
+          <span class="cost-scale-label">Cost per serving</span>
           <span class="cost-scale-value" id="costScaleValue">—</span>
         </div>
-        <input
-          type="range"
-          id="costScaleInput"
-          class="cost-scale-slider"
-          min="0"
-          max="100"
-          step="1"
-          value="100"
-        />
+        <div class="cost-scale-range">
+          <div class="cost-scale-track" id="costScaleTrack" aria-hidden="true"></div>
+          <input
+            type="range"
+            id="costScaleMinInput"
+            class="cost-scale-slider cost-scale-slider--min"
+            min="0"
+            max="100"
+            step="1"
+            value="0"
+            aria-label="Minimum cost per serving"
+          />
+          <input
+            type="range"
+            id="costScaleMaxInput"
+            class="cost-scale-slider cost-scale-slider--max"
+            min="0"
+            max="100"
+            step="1"
+            value="100"
+            aria-label="Maximum cost per serving"
+          />
+        </div>
         <div class="cost-scale-ticks" id="costScaleTicks" aria-hidden="true"></div>
       </div>
 
