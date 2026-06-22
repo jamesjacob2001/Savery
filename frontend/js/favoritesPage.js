@@ -72,7 +72,7 @@ function renderCards(list = favorites) {
 
 /**
  * Builds a single recipe card DOM element.
- * Matches the card style described in style.css (.recipe-card)
+ * Matches the card style in recipe-card.css (.recipe-card)
  */
 function buildCard(recipe) {
   const card = document.createElement("div");

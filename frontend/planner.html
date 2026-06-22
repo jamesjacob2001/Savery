@@ -10,8 +10,9 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
-    <!-- Shared app styles -->
-    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./css/nav.css" />
+    <link rel="stylesheet" href="./css/planner.css" />
   </head>
   <body>
 
@@ -96,7 +97,7 @@
         Grid layout: rows = meal times (Breakfast, Lunch, Dinner)
                      cols = days (Mon through Sun)
         Each cell is a slot where a recipe name can be placed.
-        Clicking a slot opens an input to type/select a recipe.
+        Each cell contains a button to add or change a recipe.
       -->
       <div class="planner-grid-wrapper">
         <table class="planner-table" id="plannerTable">
@@ -121,10 +122,10 @@
 
       <!-- ── Action Buttons ── -->
       <div class="planner-actions">
-        <button class="btn-savery-green" id="savePlanBtn">Save New Plan</button>
-        <button class="btn-savery-outline" id="updatePlanBtn">Update Plan</button>
-        <button class="btn-savery-outline" id="deletePlanBtn">Delete Plan</button>
-        <button class="btn-savery-outline" id="clearPlanBtn">Clear Plan</button>
+        <button type="button" class="btn-savery-green" id="savePlanBtn">Save New Plan</button>
+        <button type="button" class="btn-savery-outline" id="updatePlanBtn">Update Plan</button>
+        <button type="button" class="btn-savery-outline" id="deletePlanBtn">Delete Plan</button>
+        <button type="button" class="btn-savery-outline" id="clearPlanBtn">Clear Plan</button>
       </div>
     </main>
 

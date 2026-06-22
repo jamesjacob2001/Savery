@@ -1,0 +1,208 @@
+/* planner.css – meal planner page */
+
+.planner-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.planner-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.planner-cost-banner {
+  background-color: var(--green);
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.planner-grid-wrapper {
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.planner-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+  background-color: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.planner-table th,
+.planner-table td {
+  border: 1px solid var(--border-grey);
+  padding: 10px 8px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 0.88rem;
+}
+
+.planner-table thead th {
+  background-color: var(--light-grey);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.planner-table td.meal-label {
+  font-weight: 600;
+  background-color: var(--off-white);
+  white-space: nowrap;
+  text-align: left;
+  padding-left: 14px;
+}
+
+.planner-slot {
+  min-width: 90px;
+  min-height: 64px;
+  border-radius: 8px;
+  position: relative;
+  vertical-align: top;
+  padding: 8px;
+}
+
+.slot-add-btn,
+.slot-choose-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.15s;
+}
+
+.slot-add-btn {
+  color: var(--border-grey);
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  min-height: 48px;
+}
+
+.slot-choose-btn {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  white-space: normal;
+  word-break: break-word;
+  text-align: left;
+}
+
+.slot-add-btn:hover,
+.slot-choose-btn:hover {
+  background-color: #e8f5e9;
+}
+
+.slot-add-btn:focus-visible,
+.slot-choose-btn:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+.slot-remove-btn {
+  background: none;
+  border: none;
+  color: var(--red-heart);
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: block;
+  margin: 4px auto 0;
+}
+
+.planner-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn-savery-green {
+  padding: 10px 22px;
+  background-color: var(--green);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn-savery-green:hover {
+  background-color: var(--green-dark);
+}
+
+.btn-savery-outline {
+  padding: 10px 22px;
+  background-color: var(--white);
+  color: var(--text-dark);
+  border: 1px solid var(--border-grey);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-savery-outline:hover {
+  background-color: var(--light-grey);
+}
+
+.slot-picker-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.slot-picker-box {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px;
+  min-width: 300px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.slot-picker-box h3 {
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+}
+
+.slot-picker-box input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-grey);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  outline: none;
+}
+
+.slot-picker-box input:focus {
+  border-color: var(--green);
+}
+
+.slot-picker-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  float: right;
+  color: var(--text-muted);
+}

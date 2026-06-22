@@ -1,0 +1,38 @@
+/* favorites.css – favorites page */
+
+.favorites-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.favorites-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--red-heart);
+  margin-bottom: 4px;
+}
+
+.favorites-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.favorites-search-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.savery-search-input {
+  flex: 1;
+  padding: 8px 14px;
+  border: 1px solid var(--border-grey);
+  border-radius: 0;
+  font-size: 0.95rem;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}

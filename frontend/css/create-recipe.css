@@ -1,0 +1,10 @@
+/* create-recipe.css – create a recipe page */
+
+.create-recipe-main {
+  max-width: 720px;
+}
+
+#createRecipeForm .alert a {
+  color: var(--green-dark);
+  font-weight: 600;
+}

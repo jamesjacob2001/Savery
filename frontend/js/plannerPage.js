@@ -174,16 +174,7 @@ function renderGrid() {
       cell.dataset.meal = meal;
       cell.dataset.day = day;
 
-      // Fill cell content based on current state
       renderSlotContent(cell, meal, day);
-
-      // Clicking an empty slot opens the recipe picker
-      cell.addEventListener("click", (e) => {
-        // Ignore clicks on the remove button inside a filled slot
-        if (e.target.classList.contains("slot-remove-btn")) return;
-        openSlotPicker(meal, day);
-      });
-
       row.appendChild(cell);
     });
 
@@ -201,29 +192,43 @@ function getRecipeById(recipeId) {
 }
 
 /**
- * Fills a single slot cell with either the recipe name + remove button,
- * or the placeholder dots if the slot is empty.
+ * Fills a single slot cell with buttons to add, change, or remove a recipe.
  */
 function renderSlotContent(cell, meal, day) {
   const key = `${meal}-${day}`;
   const recipeId = planState[key];
   const recipe = getRecipeById(recipeId);
 
+  cell.innerHTML = "";
+
   if (recipe) {
-    // Slot is filled — show the recipe name and a remove button
-    cell.innerHTML = `
-      <span class="slot-recipe-name">${recipe.name}</span>
-      <button class="slot-remove-btn" aria-label="Remove recipe">✕</button>
-    `;
+    const chooseBtn = document.createElement("button");
+    chooseBtn.type = "button";
+    chooseBtn.className = "slot-choose-btn";
+    chooseBtn.textContent = recipe.name;
+    chooseBtn.setAttribute(
+      "aria-label",
+      `Change recipe for ${meal} on ${day}`
+    );
+    chooseBtn.addEventListener("click", () => openSlotPicker(meal, day));
 
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.className = "slot-remove-btn";
+    removeBtn.setAttribute("aria-label", "Remove recipe");
+    removeBtn.textContent = "✕";
+    removeBtn.addEventListener("click", () => removeSlot(meal, day));
 
-    // Wire the remove button
-    cell.querySelector(".slot-remove-btn").addEventListener("click", () => {
-      removeSlot(meal, day);
-    });
+    cell.appendChild(chooseBtn);
+    cell.appendChild(removeBtn);
   } else {
-    // Slot is empty — show placeholder
-    cell.innerHTML = `<span class="slot-placeholder">···</span>`;
+    const addBtn = document.createElement("button");
+    addBtn.type = "button";
+    addBtn.className = "slot-add-btn";
+    addBtn.textContent = "···";
+    addBtn.setAttribute("aria-label", `Add recipe for ${meal} on ${day}`);
+    addBtn.addEventListener("click", () => openSlotPicker(meal, day));
+    cell.appendChild(addBtn);
   }
 }
 
@@ -250,7 +255,7 @@ function openSlotPicker(meal, day) {
 
   modal.innerHTML = `
     <div class="slot-picker-box">
-      <button class="slot-picker-close" aria-label="Close">&times;</button>
+      <button type="button" class="slot-picker-close" aria-label="Close">&times;</button>
       <h3>Add Recipe — ${meal} / ${day}</h3>
 
       <select id="slotRecipeSelect" class="form-select">
@@ -258,7 +263,7 @@ function openSlotPicker(meal, day) {
         ${recipeOptions}
       </select>
 
-      <button class="btn-savery-green" id="slotConfirmBtn">Add to Plan</button>
+      <button type="button" class="btn-savery-green" id="slotConfirmBtn">Add to Plan</button>
     </div>
   `;
 
@@ -319,11 +324,6 @@ function refreshSlot(meal, day) {
   );
   if (cell) {
     renderSlotContent(cell, meal, day);
-    // Re-attach the cell click listener (innerHTML wipe removes old ones)
-    cell.addEventListener("click", (e) => {
-      if (e.target.classList.contains("slot-remove-btn")) return;
-      openSlotPicker(meal, day);
-    });
   }
 }
 

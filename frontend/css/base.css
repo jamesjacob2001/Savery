@@ -1,0 +1,73 @@
+/* base.css – shared tokens, reset, and utilities */
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700&display=swap");
+
+:root {
+  --green: #4caf50;
+  --green-dark: #388e3c;
+  --red-heart: #e53935;
+  --white: #ffffff;
+  --off-white: #f3efe6;
+  --light-grey: #eeeeee;
+  --border-grey: #cccccc;
+  --text-dark: #222222;
+  --text-muted: #666666;
+  --font-main: "Segoe UI", Arial, sans-serif;
+  --font-brand: "Nunito", var(--font-main);
+  --radius: 12px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --bs-success: #4caf50;
+  --bs-success-rgb: 76, 175, 80;
+  --bs-border-radius: 0;
+  --bs-border-radius-sm: 0;
+  --bs-border-radius-lg: 0;
+}
+
+.btn-success {
+  --bs-btn-bg: var(--green);
+  --bs-btn-border-color: var(--green);
+  --bs-btn-hover-bg: var(--green-dark);
+  --bs-btn-hover-border-color: var(--green-dark);
+  --bs-btn-active-bg: var(--green-dark);
+  --bs-btn-active-border-color: var(--green-dark);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--off-white);
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+
+html {
+  background-color: var(--off-white);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.hidden {
+  display: none;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  margin-top: 60px;
+  font-size: 1rem;
+}
+
+.empty-state a {
+  color: var(--green);
+  font-weight: 600;
+}
