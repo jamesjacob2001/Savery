@@ -125,5 +125,129 @@ me.deleteFavorite = async (userId, recipeId) => {
   }
 };
 
+
+/**
+ * Retrieves all saved meal plans for a user.
+ * Meal plans are sorted so the most recently updated appears first.
+ */
+me.getMealPlans = async (userId) => {
+  const { client } = await connect();
+
+  try {
+    const db = client.db(DB_NAME);
+    const mealPlansCollection = db.collection("MealPlans");
+
+    return await mealPlansCollection
+      .find({ userId })
+      .sort({ updatedAt: -1 })
+      .toArray();
+  } finally {
+    await client.close();
+  }
+};
+
+/**
+ * Creates a new meal plan document in MongoDB.
+ * Each meal plan belongs to a single user and stores recipe IDs
+ * for each meal/day slot.
+ */
+me.createMealPlan = async (userId, planData) => {
+  const { client } = await connect();
+
+  try {
+    const db = client.db(DB_NAME);
+    const mealPlansCollection = db.collection("MealPlans");
+
+    const mealPlanDoc = {
+      userId,
+      title: planData.title || "Untitled Meal Plan",
+      meals: planData.meals || {},
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    const result = await mealPlansCollection.insertOne(mealPlanDoc);
+
+    return {
+      ...mealPlanDoc,
+      _id: result.insertedId,
+    };
+  } catch (error) {
+    console.error("Error creating meal plan", error);
+    throw error;
+  } finally {
+    await client.close();
+  }
+};
+
+/**
+ * Updates an existing meal plan with a new title and/or meal selections.
+ * The updatedAt timestamp is refreshed each time the plan is edited.
+ */
+me.updateMealPlan = async (userId, id, planData) => {
+  const { client } = await connect();
+
+  try {
+    const db = client.db(DB_NAME);
+    const mealPlansCollection = db.collection("MealPlans");
+
+    const { ObjectId } = await import("mongodb");
+
+    const updatedFields = {
+      title: planData.title || "Untitled Meal Plan",
+      meals: planData.meals || {},
+      updatedAt: new Date(),
+    };
+
+    await mealPlansCollection.updateOne(
+      {
+        _id: new ObjectId(id),
+        userId,
+      },
+      {
+        $set: updatedFields,
+      }
+    );
+
+    return await mealPlansCollection.findOne({
+      _id: new ObjectId(id),
+      userId,
+    });
+  } catch (error) {
+    console.error("Error updating meal plan", error);
+    throw error;
+  } finally {
+    await client.close();
+  }
+};
+
+/**
+ * Deletes one meal plan belonging to the current user.
+ */
+me.deleteMealPlan = async (userId, id) => {
+  const { client } = await connect();
+
+  try {
+    const db = client.db(DB_NAME);
+    const mealPlansCollection = db.collection("MealPlans");
+
+    const { ObjectId } = await import("mongodb");
+
+    await mealPlansCollection.deleteOne({
+      _id: new ObjectId(id),
+      userId,
+    });
+
+    return true;
+  } catch (error) {
+    console.error("Error deleting meal plan", error);
+    throw error;
+  } finally {
+    await client.close();
+  }
+};
+
+
+
   return me;
 }
