@@ -9,8 +9,6 @@ A budget-friendly recipe web app for college students. Browse affordable meals, 
 
 ## Class Link
 
-> Replace the URL below with your course Canvas or syllabus page before submitting.
-
 [Web Development — Project 2]((https://johnguerra.co/classes/webDevelopment_online_summer_2026/))
 
 ## Project Objective
