@@ -7,6 +7,7 @@ import {
 let allRecipes = [];
 let selectedRecipeId = null;
 let costScaleBounds = { minCents: 0, maxCents: 100 };
+let savedRecipeIds = new Set();
 
 const filterState = {
   cuisines: new Set(),
@@ -446,6 +447,44 @@ function showError(message) {
   errorState.classList.remove("hidden");
 }
 
+async function toggleFavorite(recipeId, heartButton) {
+  const isSaved = savedRecipeIds.has(recipeId);
+
+  try {
+    if (isSaved) {
+      const response = await fetch(`/api/favorites/${recipeId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to remove favorite");
+      }
+
+      savedRecipeIds.delete(recipeId);
+      heartButton.classList.remove("card-heart-btn--saved");
+      heartButton.setAttribute("aria-label", "Save to favorites");
+    } else {
+      const response = await fetch("/api/favorites", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ recipeId }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save favorite");
+      }
+
+      savedRecipeIds.add(recipeId);
+      heartButton.classList.add("card-heart-btn--saved");
+      heartButton.setAttribute("aria-label", "Remove from favorites");
+    }
+  } catch (error) {
+    console.error("Error toggling favorite", error);
+  }
+}
+
 function buildCard(recipe) {
   const card = document.createElement("div");
   card.className = "recipe-card";
@@ -454,8 +493,16 @@ function buildCard(recipe) {
   const imgSrc =
     recipe.image_url || "https://placehold.co/300x150?text=No+Image";
 
+  const isSaved = savedRecipeIds.has(recipe.id);
+
   card.innerHTML = `
-    <button class="card-heart-btn" type="button" aria-label="Save to favorites">&#9829;</button>
+    <button
+      class="card-heart-btn ${isSaved ? "card-heart-btn--saved" : ""}"
+      type="button"
+      aria-label="Save to favorites"
+    >
+      &#9829;
+    </button>
     <img class="card-img" src="${imgSrc}" alt="${recipe.name}" />
     <div class="card-body">
       <h3 class="card-title">${recipe.name}</h3>
@@ -474,8 +521,11 @@ function buildCard(recipe) {
     selectRecipe(recipe.id);
   });
 
-  card.querySelector(".card-heart-btn").addEventListener("click", (event) => {
+  const heartButton = card.querySelector(".card-heart-btn");
+
+  heartButton.addEventListener("click", async (event) => {
     event.stopPropagation();
+    await toggleFavorite(recipe.id, heartButton);
   });
 
   const breakdown = card.querySelector(".card-cost-breakdown");
@@ -666,6 +716,17 @@ function handleCostChange(event) {
   applyFilters();
 }
 
+async function loadSavedFavorites() {
+  const response = await fetch("/api/favorites");
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch favorites");
+  }
+
+  const data = await response.json();
+  savedRecipeIds = new Set(data.favorites.map((recipe) => recipe.id));
+}
+
 async function loadRecipes() {
   const response = await fetch("/api/recipes");
   if (!response.ok) {
@@ -723,7 +784,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupFilterControls();
 
-  loadRecipes().catch(() => {
+  Promise.all([loadSavedFavorites(), loadRecipes()]).catch(() => {
     showError("Failed to load recipes. Please try again later.");
   });
 });

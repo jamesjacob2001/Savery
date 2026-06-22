@@ -60,5 +60,70 @@ export default function SaveryMongoDB({
     }
   };
 
+  me.getFavorites = async (userId) => {
+  const { client } = await connect();
+
+  try {
+    const db = client.db(DB_NAME);
+    const favoritesCollection = db.collection("Favorites");
+    const recipesCollection = db.collection("Recipes");
+
+    const favorites = await favoritesCollection
+      .find({ userId })
+      .sort({ savedAt: -1 })
+      .toArray();
+
+    const recipeIds = favorites.map((favorite) => favorite.recipeId);
+
+    const recipes = await recipesCollection
+      .find({ id: { $in: recipeIds } })
+      .toArray();
+
+    return recipes;
+  } finally {
+    await client.close();
+  }
+};
+
+me.createFavorite = async (userId, recipeId) => {
+  const { client } = await connect();
+
+  try {
+    const db = client.db(DB_NAME);
+    const favoritesCollection = db.collection("Favorites");
+
+    const favoriteDoc = {
+      userId,
+      recipeId,
+      savedAt: new Date(),
+    };
+
+    await favoritesCollection.updateOne(
+      { userId, recipeId },
+      { $setOnInsert: favoriteDoc },
+      { upsert: true }
+    );
+
+    return favoriteDoc;
+  } finally {
+    await client.close();
+  }
+};
+
+me.deleteFavorite = async (userId, recipeId) => {
+  const { client } = await connect();
+
+  try {
+    const db = client.db(DB_NAME);
+    const favoritesCollection = db.collection("Favorites");
+
+    await favoritesCollection.deleteOne({ userId, recipeId });
+
+    return true;
+  } finally {
+    await client.close();
+  }
+};
+
   return me;
 }

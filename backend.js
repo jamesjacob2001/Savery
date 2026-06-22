@@ -1,5 +1,6 @@
 import express from "express";
 import recipesRouter from "./routes/recipeApi.js";
+import favoritesRouter from "./routes/favoritesApi.js";
 
 console.log("Savery server starting...");
 console.log("Hello from the backend...");
@@ -14,7 +15,7 @@ app.use(express.static("frontend"));
 
 app.use("/api/recipes", recipesRouter);
 // app.use("/api/planner", plannerRouter);
-// app.use("/api/favorites", favoritesRouter);
+app.use("/api/favorites", favoritesRouter);
 
 // this function is being called by express to start the server
 app.listen(PORT, () => {
