@@ -2,7 +2,6 @@ import express from "express";
 import SaveryMongoDB from "../db/MyMongoDB.js";
 
 const saveryMongoDB = SaveryMongoDB();
-console.log("Favorites API DB methods:", Object.keys(saveryMongoDB));
 const router = express.Router();
 
 const DEMO_USER_ID = "demo-user";

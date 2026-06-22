@@ -195,13 +195,6 @@
   transform: none;
 }
 
-.discovery-error {
-  text-align: center;
-  color: var(--red-heart);
-  margin-top: 24px;
-  font-size: 0.95rem;
-}
-
 .filter-wrap {
   position: relative;
   flex-shrink: 0;

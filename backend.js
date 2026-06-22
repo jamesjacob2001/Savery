@@ -4,7 +4,6 @@ import favoritesRouter from "./routes/favoritesApi.js";
 import plannerRouter from "./routes/plannerApi.js";
 
 console.log("Savery server starting...");
-console.log("Hello from the backend...");
 
 // check if port is in environment variables, if not use 3000
 const PORT = process.env.PORT || 3000;

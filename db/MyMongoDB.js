@@ -19,9 +19,7 @@ export default function SaveryMongoDB({
   me.getRecipes = async ({ query = {} } = {}) => {
     const { client, collection } = await connect();
     try {
-      const recipes = await collection.find(query).toArray();
-      console.log("Recipes fetched successfully", recipes);
-      return recipes;
+      return await collection.find(query).toArray();
     } catch (error) {
       console.error("Error getting recipes", error);
       throw error;

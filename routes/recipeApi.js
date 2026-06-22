@@ -109,7 +109,6 @@ function validateRecipeBody(body) {
 
 router.get("/", async (req, res) => {
   try {
-    console.log("Recieved request for /api/recipes");
     const recipes = await saveryMongoDB.getRecipes();
     res.json({ recipes });
   } catch (error) {

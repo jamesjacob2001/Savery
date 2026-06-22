@@ -7,7 +7,7 @@ export default [
   prettier,
   {
     // Backend files — Node.js globals
-    files: ["backend.js", "server/**/*.js"],
+    files: ["backend.js", "routes/**/*.js", "db/**/*.js", "scripts/**/*.js"],
     languageOptions: {
       globals: {
         ...globals.node,

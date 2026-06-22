@@ -18,18 +18,6 @@ function inferPackageUsageFraction(line) {
   return Math.min(fraction, 1);
 }
 
-export function getOwnedPackages(sourceRecipe) {
-  const packages = [];
-
-  for (const line of sourceRecipe.ingredient_costs || []) {
-    if (line.package_key && !packages.includes(line.package_key)) {
-      packages.push(line.package_key);
-    }
-  }
-
-  return packages;
-}
-
 export function getRemainingPackages(sourceRecipe) {
   const usageByKey = new Map();
 
@@ -72,23 +60,6 @@ function getPackageMap(recipe) {
   }
 
   return packages;
-}
-
-export function usesOnlyOwnedPackages(sourceRecipe, candidateRecipe) {
-  const ownedKeys = new Set(getPackageMap(sourceRecipe).keys());
-  const needed = getPackageMap(candidateRecipe);
-
-  if (needed.size === 0) {
-    return false;
-  }
-
-  for (const key of needed.keys()) {
-    if (!ownedKeys.has(key)) {
-      return false;
-    }
-  }
-
-  return true;
 }
 
 function getExtraPackageKeys(sourceRecipe, candidateRecipe) {
