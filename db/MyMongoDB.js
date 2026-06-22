@@ -150,6 +150,8 @@ me.getMealPlans = async (userId) => {
  * Creates a new meal plan document in MongoDB.
  * Each meal plan belongs to a single user and stores recipe IDs
  * for each meal/day slot.
+ *
+ * Duplicate meal plan names are blocked for the same user.
  */
 me.createMealPlan = async (userId, planData) => {
   const { client } = await connect();
@@ -158,9 +160,20 @@ me.createMealPlan = async (userId, planData) => {
     const db = client.db(DB_NAME);
     const mealPlansCollection = db.collection("MealPlans");
 
+    const title = planData.title?.trim() || "Untitled Meal Plan";
+
+    const existingPlan = await mealPlansCollection.findOne({
+      userId,
+      title,
+    });
+
+    if (existingPlan) {
+      throw new Error("A meal plan with this name already exists.");
+    }
+
     const mealPlanDoc = {
       userId,
-      title: planData.title || "Untitled Meal Plan",
+      title,
       meals: planData.meals || {},
       createdAt: new Date(),
       updatedAt: new Date(),

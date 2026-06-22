@@ -10,14 +10,12 @@ const DAYS = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
 // Meal times shown as rows
 const MEALS = ["Breakfast", "Lunch", "Dinner"];
 
-// localStorage key — stores the current plan between page refreshes
-const STORAGE_KEY = "savery_weekly_plan";
 
 // ── State ──────────────────────────────────────────────────────────────────
 
 /*
   planState is a flat object keyed by "MealTime-Day"
-  e.g. { "Breakfast-Mon": "Chicken Pasta", "Dinner-Fri": "Beef Tacos" }
+ e.g. { "Breakfast-Mon": 12, "Dinner-Fri": 45 }
   Empty slots are simply absent from the object.
 */
 let planState = {};
@@ -140,6 +138,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   document
     .getElementById("mealPlanSelect")
     .addEventListener("change", loadSelectedMealPlan);
+
+  document
+  .getElementById("updatePlanBtn")
+  .addEventListener("click", updatePlan);
+
+  document
+  .getElementById("deletePlanBtn")
+  .addEventListener("click", deletePlan);
 });
 
 // ── Render Grid ────────────────────────────────────────────────────────────
@@ -210,7 +216,7 @@ function renderSlotContent(cell, meal, day) {
       <button class="slot-remove-btn" aria-label="Remove recipe">✕</button>
     `;
 
-    
+
     // Wire the remove button
     cell.querySelector(".slot-remove-btn").addEventListener("click", () => {
       removeSlot(meal, day);
@@ -224,61 +230,61 @@ function renderSlotContent(cell, meal, day) {
 // ── Slot Picker Modal ──────────────────────────────────────────────────────
 
 /**
- * Opens a simple modal that lets the user type a recipe name
- * and assign it to the chosen meal/day slot.
+ * Opens a modal that lets the user select an existing recipe from MongoDB.
+ * The planner stores the recipe ID, not the recipe name.
  */
 function openSlotPicker(meal, day) {
-  // Build modal markup
   const modal = document.createElement("div");
   modal.className = "slot-picker-modal";
   modal.setAttribute("role", "dialog");
   modal.setAttribute("aria-modal", "true");
 
+  const recipeOptions = recipes
+    .map(
+      (recipe) =>
+        `<option value="${recipe.id}">${recipe.name} - $${Number(
+          recipe.cost_per_serving ?? recipe.cost ?? 0
+        ).toFixed(2)}/serving</option>`
+    )
+    .join("");
+
   modal.innerHTML = `
     <div class="slot-picker-box">
       <button class="slot-picker-close" aria-label="Close">&times;</button>
       <h3>Add Recipe — ${meal} / ${day}</h3>
-      <input
-        type="text"
-        id="slotInput"
-        placeholder="Type a recipe name..."
-        autocomplete="off"
-      />
+
+      <select id="slotRecipeSelect" class="form-select">
+        <option value="">Choose a recipe...</option>
+        ${recipeOptions}
+      </select>
+
       <button class="btn-savery-green" id="slotConfirmBtn">Add to Plan</button>
     </div>
   `;
 
   document.body.appendChild(modal);
 
-  const input = modal.querySelector("#slotInput");
-  input.focus();
+  const select = modal.querySelector("#slotRecipeSelect");
+  select.focus();
 
-  // Confirm button — assign the typed name to the slot
   modal.querySelector("#slotConfirmBtn").addEventListener("click", () => {
-    const value = input.value.trim();
-    if (value) {
-      assignSlot(meal, day, value);
+    const recipeId = Number(select.value);
+
+    if (recipeId) {
+      assignSlot(meal, day, recipeId);
     }
+
     closeModal(modal);
   });
 
-  // Allow Enter key to confirm
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      const value = input.value.trim();
-      if (value) assignSlot(meal, day, value);
-      closeModal(modal);
-    }
-  });
-
-  // Close button
   modal.querySelector(".slot-picker-close").addEventListener("click", () => {
     closeModal(modal);
   });
 
-  // Click outside the box to close
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal(modal);
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeModal(modal);
+    }
   });
 }
 
@@ -289,9 +295,9 @@ function closeModal(modal) {
 
 // ── State Mutations ────────────────────────────────────────────────────────
 
-/** Assigns a recipe name to a slot and re-renders that cell */
-function assignSlot(meal, day, recipeName) {
-  planState[`${meal}-${day}`] = recipeName;
+/** Assigns a recipe ID to a slot and re-renders that cell */
+function assignSlot(meal, day, recipeId) {
+  planState[`${meal}-${day}`] = recipeId;
   refreshSlot(meal, day);
   updateCostBanner();
 }
@@ -324,47 +330,167 @@ function refreshSlot(meal, day) {
 // ── Cost Estimation ────────────────────────────────────────────────────────
 
 /**
- * Updates the cost banner.
- * NOTE: When the backend is connected, this will fetch real recipe costs.
- * For now, each filled slot counts as a $5 placeholder cost.
+ * Updates the estimated weekly cost using the real recipe costs.
+ * Each filled slot stores a recipe ID, so we look up each recipe
+ * and add its cost per serving.
  */
 function updateCostBanner() {
-  const filledSlots = Object.keys(planState).length;
-  // Placeholder: $5 per meal slot — will be replaced with real data
-  const estimatedCost = (filledSlots * 5).toFixed(2);
-  document.getElementById("totalCost").textContent = `$${estimatedCost}`;
+  const recipeIds = Object.values(planState);
+
+  const estimatedCost = recipeIds.reduce((total, recipeId) => {
+    const recipe = getRecipeById(recipeId);
+
+    if (!recipe) {
+      return total;
+    }
+
+    const cost =
+      recipe.cost_per_serving ??
+      recipe.cost ??
+      0;
+
+    return total + Number(cost);
+  }, 0);
+
+  document.getElementById("totalCost").textContent =
+    `$${estimatedCost.toFixed(2)}`;
 }
 
-// ── Persistence (localStorage) ─────────────────────────────────────────────
+// ── MEAL PLAN CRUD ─────────────────────────────────────────────
 
 /**
- * Saves the current planState to localStorage so it
- * survives page refreshes. Will later be replaced by a
- * POST to /api/plans when the backend is wired up.
+ * Saves the current planner grid as a new meal plan in MongoDB.
+ * This always creates a new plan, even if another plan is selected.
  */
-function savePlan() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(planState));
-  alert("Meal plan saved!");
-}
+async function savePlan() {
+  const titleInput = document.getElementById("mealPlanTitle");
+  const title = titleInput.value.trim();
 
-/** Loads a previously saved plan from localStorage */
-function loadPlanFromStorage() {
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored) {
-    try {
-      planState = JSON.parse(stored);
-    } catch {
-      // If stored data is corrupt, start fresh
-      planState = {};
+  if (!title) {
+    alert("Please enter a meal plan name.");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/planner", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        meals: planState,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to save meal plan");
     }
+
+    const data = await response.json();
+    const newPlan = data.mealPlan;
+
+    currentMealPlanId = newPlan._id;
+
+    await loadMealPlans();
+
+    document.getElementById("mealPlanSelect").value = currentMealPlanId;
+
+    alert("Meal plan saved!");
+  } catch (error) {
+    console.error("Error saving meal plan", error);
+    alert("Could not save meal plan. Please try again.");
   }
 }
 
-/** Clears all slots and removes the saved plan from localStorage */
+/**
+ * Updates the currently selected meal plan in MongoDB.
+ */
+async function updatePlan() {
+  if (!currentMealPlanId) {
+    alert("Please select a meal plan to update.");
+    return;
+  }
+
+  const title = document.getElementById("mealPlanTitle").value.trim();
+
+  try {
+    const response = await fetch(`/api/planner/${currentMealPlanId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        meals: planState,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update meal plan");
+    }
+
+    await loadMealPlans();
+    document.getElementById("mealPlanSelect").value = currentMealPlanId;
+
+    alert("Meal plan updated!");
+  } catch (error) {
+    console.error("Error updating meal plan", error);
+    alert("Could not update meal plan.");
+  }
+}
+
+/**
+ * Deletes the currently selected meal plan from MongoDB.
+ */
+async function deletePlan() {
+  if (!currentMealPlanId) {
+    alert("Please select a meal plan to delete.");
+    return;
+  }
+
+  const confirmed = confirm(
+    "Are you sure you want to delete this meal plan?"
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/planner/${currentMealPlanId}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete meal plan");
+    }
+
+    // Reset the planner to a blank state
+    currentMealPlanId = null;
+    planState = {};
+
+    document.getElementById("mealPlanTitle").value = "";
+    document.getElementById("mealPlanSelect").value = "";
+
+    renderGrid();
+    updateCostBanner();
+
+    // Refresh the dropdown
+    await loadMealPlans();
+
+    alert("Meal plan deleted.");
+  } catch (error) {
+    console.error("Error deleting meal plan", error);
+    alert("Could not delete meal plan.");
+  }
+}
+
+
+/** Clears the current planner grid without deleting any saved meal plans. */
 function clearPlan() {
   if (!confirm("Clear the entire meal plan?")) return;
   planState = {};
-  localStorage.removeItem(STORAGE_KEY);
   renderGrid();
   updateCostBanner();
 }

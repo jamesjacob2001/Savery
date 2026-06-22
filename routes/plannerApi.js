@@ -22,10 +22,9 @@ router.post("/", async (req, res) => {
     return res.status(201).json({ mealPlan });
   } catch (error) {
     console.error("Error creating meal plan", error);
-    return res.status(500).json({ error: "Error creating meal plan" });
+    return res.status(400).json({ error: error.message });
   }
 });
-
 router.put("/:id", async (req, res) => {
   try {
     const mealPlan = await saveryMongoDB.updateMealPlan(
