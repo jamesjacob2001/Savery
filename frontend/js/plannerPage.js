@@ -22,16 +22,124 @@ const STORAGE_KEY = "savery_weekly_plan";
 */
 let planState = {};
 
+// Stores all recipes fetched from MongoDB.
+// Used later to populate the recipe picker and calculate total cost.
+let recipes = [];
+
+// Keeps track of the currently selected meal plan.
+let currentMealPlanId = null;
+
+// Stores saved meal plans fetched from MongoDB.
+let mealPlans = [];
+
 // ── On Page Load ───────────────────────────────────────────────────────────
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadPlanFromStorage(); // restore any previously saved plan
-  renderGrid();          // build the table rows
-  updateCostBanner();    // show estimated cost
+/**
+ * Loads all recipes from the backend.
+ * These recipes will be used for selecting meals and calculating cost.
+ */
+async function loadRecipes() {
+  try {
+    const response = await fetch("/api/recipes");
 
-  // Wire up Save and Clear buttons
+    if (!response.ok) {
+      throw new Error("Failed to load recipes");
+    }
+
+    const data = await response.json();
+    recipes = data.recipes || [];
+  } catch (error) {
+    console.error("Error loading recipes", error);
+    recipes = [];
+  }
+}
+
+/**
+ * Loads all saved meal plans from MongoDB and fills the saved plans dropdown.
+ */
+async function loadMealPlans() {
+  try {
+    const response = await fetch("/api/planner");
+
+    if (!response.ok) {
+      throw new Error("Failed to load meal plans");
+    }
+
+    const data = await response.json();
+    mealPlans = data.mealPlans || [];
+    populateMealPlanSelect();
+  } catch (error) {
+    console.error("Error loading meal plans", error);
+    mealPlans = [];
+    populateMealPlanSelect();
+  }
+}
+
+/**
+ * Updates the saved meal plan dropdown based on mealPlans.
+ */
+function populateMealPlanSelect() {
+  const select = document.getElementById("mealPlanSelect");
+
+  select.innerHTML = `
+    <option value="">Create New Meal Plan</option>
+  `;
+
+  mealPlans.forEach((plan) => {
+    const option = document.createElement("option");
+    option.value = plan._id;
+    option.textContent = plan.title || "Untitled Meal Plan";
+    select.appendChild(option);
+  });
+}
+
+/**
+ * Loads the selected saved meal plan into the current planner grid.
+ */
+function loadSelectedMealPlan() {
+  const select = document.getElementById("mealPlanSelect");
+  const selectedId = select.value;
+
+  if (!selectedId) {
+    currentMealPlanId = null;
+    document.getElementById("mealPlanTitle").value = "";
+    planState = {};
+    renderGrid();
+    updateCostBanner();
+    return;
+  }
+
+  const selectedPlan = mealPlans.find((plan) => plan._id === selectedId);
+
+  if (!selectedPlan) {
+    return;
+  }
+
+  currentMealPlanId = selectedPlan._id;
+  document.getElementById("mealPlanTitle").value = selectedPlan.title || "";
+  planState = selectedPlan.meals || {};
+
+  renderGrid();
+  updateCostBanner();
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // Load recipes and saved meal plans from MongoDB
+  await loadRecipes();
+  await loadMealPlans();
+
+  // Build the planner grid and calculate the starting cost
+  renderGrid();
+  updateCostBanner();
+
+  // Wire up planner action buttons
   document.getElementById("savePlanBtn").addEventListener("click", savePlan);
   document.getElementById("clearPlanBtn").addEventListener("click", clearPlan);
+
+  // When a user selects a saved meal plan, load it into the grid
+  document
+    .getElementById("mealPlanSelect")
+    .addEventListener("change", loadSelectedMealPlan);
 });
 
 // ── Render Grid ────────────────────────────────────────────────────────────
@@ -77,20 +185,32 @@ function renderGrid() {
   });
 }
 
+
+/**
+ * Finds a recipe by its numeric id.
+ * Meal plans store recipe IDs, but the UI needs recipe names and costs.
+ */
+function getRecipeById(recipeId) {
+  return recipes.find((recipe) => Number(recipe.id) === Number(recipeId));
+}
+
 /**
  * Fills a single slot cell with either the recipe name + remove button,
  * or the placeholder dots if the slot is empty.
  */
 function renderSlotContent(cell, meal, day) {
   const key = `${meal}-${day}`;
-  const recipeName = planState[key];
+  const recipeId = planState[key];
+  const recipe = getRecipeById(recipeId);
 
-  if (recipeName) {
-    // Slot is filled — show recipe name and a remove button
+  if (recipe) {
+    // Slot is filled — show the recipe name and a remove button
     cell.innerHTML = `
-      <span class="slot-recipe-name">${recipeName}</span>
+      <span class="slot-recipe-name">${recipe.name}</span>
       <button class="slot-remove-btn" aria-label="Remove recipe">✕</button>
     `;
+
+    
     // Wire the remove button
     cell.querySelector(".slot-remove-btn").addEventListener("click", () => {
       removeSlot(meal, day);

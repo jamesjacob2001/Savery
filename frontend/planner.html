@@ -62,6 +62,30 @@
     <main class="planner-main">
       <h2 class="planner-heading">Weekly Meal Plan</h2>
 
+      <!-- ── Meal Plan Details ───────────────────────────────────── -->
+    <div class="planner-details">
+
+      <!-- Meal plan title -->
+        <div class="planner-field">
+          <label for="mealPlanTitle" class="planner-label">Meal Plan Name</label>
+          <input
+            type="text"
+            id="mealPlanTitle"
+            class="planner-input"
+            placeholder="Enter a meal plan name"
+          />
+        </div>
+
+        <!-- Existing meal plans -->
+        <div class="planner-field">
+          <label for="mealPlanSelect" class="planner-label">Saved Meal Plans</label>
+          <select id="mealPlanSelect" class="planner-select">
+            <option value="">Create New Meal Plan</option>
+          </select>
+        </div>
+
+      </div>
+
       <!-- ── Estimated Total Cost Banner ── -->
       <div class="planner-cost-banner">
         Estimated Weekly Cost: <span id="totalCost">$0.00</span>
@@ -97,7 +121,9 @@
 
       <!-- ── Action Buttons ── -->
       <div class="planner-actions">
-        <button class="btn-savery-green" id="savePlanBtn">Save Meal Plan</button>
+        <button class="btn-savery-green" id="savePlanBtn">Save New Plan</button>
+        <button class="btn-savery-outline" id="updatePlanBtn">Update Plan</button>
+        <button class="btn-savery-outline" id="deletePlanBtn">Delete Plan</button>
         <button class="btn-savery-outline" id="clearPlanBtn">Clear Plan</button>
       </div>
     </main>
