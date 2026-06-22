@@ -486,8 +486,11 @@ async function toggleFavorite(recipeId, heartButton) {
 }
 
 function buildCard(recipe) {
+  const col = document.createElement("div");
+  col.className = "col-sm-6 col-md-4 col-lg-3";
+
   const card = document.createElement("div");
-  card.className = "recipe-card";
+  card.className = "card recipe-card h-100 border-0";
   card.dataset.id = recipe.id;
 
   const imgSrc =
@@ -503,10 +506,10 @@ function buildCard(recipe) {
     >
       &#9829;
     </button>
-    <img class="card-img" src="${imgSrc}" alt="${recipe.name}" />
+    <img class="card-img-top" src="${imgSrc}" alt="${recipe.name}" />
     <div class="card-body">
-      <h3 class="card-title">${recipe.name}</h3>
-      <p class="card-meta">
+      <h3 class="card-title h6">${recipe.name}</h3>
+      <p class="card-meta mb-0">
         Cuisine: ${recipe.cuisine || "—"}<br />
         ${buildCostMetaHtml(recipe)}<br />
         Serves ${getServingSize(recipe)}<br />
@@ -535,7 +538,8 @@ function buildCard(recipe) {
     });
   }
 
-  return card;
+  col.appendChild(card);
+  return col;
 }
 
 function renderCards(list = allRecipes) {
@@ -712,7 +716,7 @@ function handleSearch() {
   applyFilters();
 }
 
-function handleCostChange(event) {
+function handleCostChange() {
   applyFilters();
 }
 

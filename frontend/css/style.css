@@ -20,6 +20,20 @@
   --font-brand: "Nunito", var(--font-main);
   --radius: 12px;
   --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --bs-success: #4caf50;
+  --bs-success-rgb: 76, 175, 80;
+  --bs-border-radius: 0;
+  --bs-border-radius-sm: 0;
+  --bs-border-radius-lg: 0;
+}
+
+.btn-success {
+  --bs-btn-bg: var(--green);
+  --bs-btn-border-color: var(--green);
+  --bs-btn-hover-bg: var(--green-dark);
+  --bs-btn-hover-border-color: var(--green-dark);
+  --bs-btn-active-bg: var(--green-dark);
+  --bs-btn-active-border-color: var(--green-dark);
 }
 
 /* ── Reset & Base ── */
@@ -174,7 +188,8 @@ a {
 }
 
 /* Recipe image placeholder / actual image */
-.card-img {
+.recipe-card .card-img,
+.recipe-card .card-img-top {
   width: 100%;
   height: 150px;
   object-fit: cover;
@@ -183,11 +198,11 @@ a {
 }
 
 /* Text area below the image */
-.card-body {
+.recipe-card .card-body {
   padding: 12px;
 }
 
-.card-title {
+.recipe-card .card-title {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 8px;
@@ -426,30 +441,14 @@ a {
 
 .discovery-main {
   max-width: 1100px;
-  margin: 0 auto;
-  padding: 24px 16px;
-  background-color: var(--off-white);
-}
-
-.discovery-heading {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  padding: 0 24px;
 }
 
 .discovery-search-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
+  align-items: stretch;
 }
 
 .cost-scale {
-  margin-bottom: 20px;
-  padding: 14px 16px 12px;
-  background-color: var(--white);
-  border: 1px solid var(--border-grey);
+  margin-bottom: 0;
 }
 
 .cost-scale-header {
@@ -695,16 +694,7 @@ a {
   width: 40px;
   height: 40px;
   padding: 0;
-  border: 1px solid var(--border-grey);
-  background-color: var(--white);
-  color: var(--text-muted);
-  cursor: pointer;
-}
-
-.filter-btn:hover,
-.filter-btn[aria-expanded="true"] {
-  color: var(--green-dark);
-  border-color: var(--green-dark);
+  flex-shrink: 0;
 }
 
 .filter-btn-icon {
@@ -805,13 +795,7 @@ a {
 }
 
 .filter-select {
-  width: 100%;
-  padding: 6px 8px;
-  border: 1px solid var(--border-grey);
   border-radius: 0;
-  font: inherit;
-  font-size: 0.85rem;
-  background-color: var(--white);
 }
 
 /* Empty state */
@@ -1033,119 +1017,9 @@ a {
    ============================================================ */
 .create-recipe-main {
   max-width: 720px;
-  margin: 0 auto;
-  padding: 24px 16px 48px;
 }
 
-.create-recipe-heading {
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.create-recipe-form {
-  background-color: var(--white);
-  border: 1px solid var(--border-grey);
-  padding: 24px;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: 8px 16px;
-  align-items: start;
-  margin-bottom: 16px;
-}
-
-.form-label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding-top: 8px;
-  text-align: right;
-}
-
-.form-required {
-  color: var(--red-heart);
-}
-
-.form-input,
-.form-textarea,
-.form-select {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1px solid var(--border-grey);
-  border-radius: 0;
-  font: inherit;
-  font-size: 0.9rem;
-  background-color: var(--white);
-}
-
-.form-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.form-hint {
-  grid-column: 2;
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  margin-top: -8px;
-}
-
-.form-hint--error {
-  color: var(--red-heart);
-}
-
-.form-fieldset {
-  border: 1px solid var(--border-grey);
-  padding: 16px;
-  margin: 20px 0;
-}
-
-.form-fieldset-legend {
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0 6px;
-}
-
-.form-message {
-  margin: 12px 0 0;
-  font-size: 0.9rem;
-}
-
-.form-message--error {
-  color: var(--red-heart);
-}
-
-.form-message--success {
-  color: var(--green-dark);
-}
-
-.form-message a {
+#createRecipeForm .alert a {
   color: var(--green-dark);
   font-weight: 600;
-  text-decoration: underline;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-}
-
-@media (max-width: 600px) {
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .form-label {
-    text-align: left;
-    padding-top: 0;
-  }
-
-  .form-hint {
-    grid-column: 1;
-    margin-top: 0;
-  }
 }
