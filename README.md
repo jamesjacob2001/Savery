@@ -25,8 +25,6 @@ The app uses a multi-page **client-side rendered (CSR)** frontend, an **Express*
 
 ## Screenshot
 
-Add a screenshot of the Recipe Discovery page to `docs/screenshots/discovery.png`, then it will display here:
-
 ![Savery Recipe Discovery](./docs/screenshots/discovery.png)
 
 ## Pages
