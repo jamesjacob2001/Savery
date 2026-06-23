@@ -1,15 +1,21 @@
 # Savery
 
-A budget-friendly recipe web app for college students. Browse affordable meals, save favorites, submit your own recipes, and plan a weekly menu with cost estimates.
+A web application that helps college students discover affordable recipes, save their favorites, and create budget-friendly meal plans.
 
 ## Authors
 
 - **Melissa Rejuan**
 - **James Jacob**
 
+## Live Demo
+
+[https://savery-production.up.railway.app/](https://savery-production.up.railway.app/)
+
 ## Class Link
 
-[Web Development — Project 2](https://johnguerra.co/classes/webDevelopment_online_summer_2026/)
+> Replace the URL below with your course Canvas or syllabus page before submitting.
+
+[Web Development — Project 2](https://YOUR-COURSE-LINK-HERE)
 
 ## Project Objective
 
