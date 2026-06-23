@@ -30,6 +30,183 @@ let currentMealPlanId = null;
 // Stores saved meal plans fetched from MongoDB.
 let mealPlans = [];
 
+// Keeps track of the active filters inside the recipe picker modal.
+let pickerFilterState = {
+  cuisines: new Set(),
+  mealTypes: new Set(),
+  dietary: new Set(),
+  maxTime: null,
+};
+
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function getUniqueValues(recipeList, field) {
+  return [...new Set(recipeList.map((recipe) => recipe[field]).filter(Boolean))].sort(
+    (a, b) => a.localeCompare(b)
+  );
+}
+
+function buildPickerFilterOptions(modal, containerId, field, groupName) {
+  const container = modal.querySelector(`#${containerId}`);
+  const values = getUniqueValues(recipes, field);
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = values
+    .map(
+      (value) => `
+        <label class="filter-chip">
+          <input type="checkbox" name="${groupName}" value="${escapeHtml(value)}" />
+          ${escapeHtml(value)}
+        </label>
+      `
+    )
+    .join("");
+}
+
+function initializePickerFilterPanel(modal) {
+  buildPickerFilterOptions(modal, "pickerCuisineOptions", "cuisine", "cuisine");
+  buildPickerFilterOptions(modal, "pickerMealOptions", "meal_type", "meal");
+  buildPickerFilterOptions(
+    modal,
+    "pickerDietOptions",
+    "dietary_restrictions",
+    "diet"
+  );
+}
+
+function readCheckedValues(modal, name) {
+  return new Set(
+    [...modal.querySelectorAll(`input[name="${name}"]:checked`)].map(
+      (input) => input.value
+    )
+  );
+}
+
+function syncPickerFilterState(modal) {
+  pickerFilterState.cuisines = readCheckedValues(modal, "cuisine");
+  pickerFilterState.mealTypes = readCheckedValues(modal, "meal");
+  pickerFilterState.dietary = readCheckedValues(modal, "diet");
+
+  const maxTimeValue = modal.querySelector("#pickerFilterMaxTime").value;
+  pickerFilterState.maxTime = maxTimeValue ? Number(maxTimeValue) : null;
+}
+
+function getTotalTime(recipe) {
+  if (recipe.total_time != null) {
+    return recipe.total_time;
+  }
+  const prep = recipe.preparation_time ?? 0;
+  const cook = recipe.cook_time ?? 0;
+  return prep + cook || null;
+}
+
+function recipeMatchesPickerFilters(recipe) {
+  if (
+    pickerFilterState.cuisines.size > 0 &&
+    !pickerFilterState.cuisines.has(recipe.cuisine)
+  ) {
+    return false;
+  }
+
+  if (
+    pickerFilterState.mealTypes.size > 0 &&
+    !pickerFilterState.mealTypes.has(recipe.meal_type)
+  ) {
+    return false;
+  }
+
+  if (
+    pickerFilterState.dietary.size > 0 &&
+    !pickerFilterState.dietary.has(recipe.dietary_restrictions)
+  ) {
+    return false;
+  }
+
+  if (pickerFilterState.maxTime != null) {
+    const totalTime = getTotalTime(recipe);
+    if (totalTime == null || totalTime > pickerFilterState.maxTime) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function getFilteredPickerRecipes() {
+  return recipes.filter((recipe) => recipeMatchesPickerFilters(recipe));
+}
+
+function renderPickerRecipeOptions(modal) {
+  const select = modal.querySelector("#slotRecipeSelect");
+  const summary = modal.querySelector("#pickerFilterSummary");
+  const confirmButton = modal.querySelector("#slotConfirmBtn");
+  const filteredRecipes = getFilteredPickerRecipes();
+
+  select.innerHTML = `
+    <option value="">${
+      filteredRecipes.length > 0 ? "Choose a recipe..." : "No recipes match these filters"
+    }</option>
+    ${filteredRecipes
+      .map(
+        (recipe) =>
+          `<option value="${recipe.id}">${escapeHtml(recipe.name)} - $${Number(
+            recipe.cost_per_serving ?? recipe.cost ?? 0
+          ).toFixed(2)}/serving</option>`
+      )
+      .join("")}
+  `;
+
+  if (summary) {
+    summary.textContent = `${filteredRecipes.length} recipe${filteredRecipes.length === 1 ? "" : "s"} available`;
+  }
+
+  if (confirmButton) {
+    confirmButton.disabled = filteredRecipes.length === 0;
+  }
+}
+
+function setupPickerFilterControls(modal) {
+  modal.querySelectorAll("input[type='checkbox']").forEach((input) => {
+    input.addEventListener("change", () => {
+      syncPickerFilterState(modal);
+      renderPickerRecipeOptions(modal);
+    });
+  });
+
+  const maxTimeInput = modal.querySelector("#pickerFilterMaxTime");
+  if (maxTimeInput) {
+    maxTimeInput.addEventListener("input", () => {
+      syncPickerFilterState(modal);
+      renderPickerRecipeOptions(modal);
+    });
+  }
+
+  const clearButton = modal.querySelector("#pickerFilterClearBtn");
+  if (clearButton) {
+    clearButton.addEventListener("click", () => {
+      pickerFilterState.cuisines.clear();
+      pickerFilterState.mealTypes.clear();
+      pickerFilterState.dietary.clear();
+      pickerFilterState.maxTime = null;
+
+      modal.querySelectorAll("#pickerFilterPanel input[type='checkbox']").forEach((input) => {
+        input.checked = false;
+      });
+      maxTimeInput.value = "";
+      renderPickerRecipeOptions(modal);
+    });
+  }
+}
+
 // ── On Page Load ───────────────────────────────────────────────────────────
 
 /**
@@ -131,8 +308,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   updateCostBanner();
 
   // Wire up planner action buttons
-  document.getElementById("savePlanBtn").addEventListener("click", savePlan);
-  document.getElementById("clearPlanBtn").addEventListener("click", clearPlan);
+  document
+    .getElementById("savePlanBtn")
+    .addEventListener("click", savePlan);
+
+
+  document
+    .getElementById("clearPlanBtn")
+    .addEventListener("click", clearPlan);
 
   // When a user selects a saved meal plan, load it into the grid
   document
@@ -140,12 +323,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     .addEventListener("change", loadSelectedMealPlan);
 
   document
-  .getElementById("updatePlanBtn")
-  .addEventListener("click", updatePlan);
+    .getElementById("updatePlanBtn")
+    .addEventListener("click", updatePlan);
 
   document
-  .getElementById("deletePlanBtn")
-  .addEventListener("click", deletePlan);
+    .getElementById("deletePlanBtn")
+    .addEventListener("click", deletePlan);
 });
 
 // ── Render Grid ────────────────────────────────────────────────────────────
@@ -239,35 +422,62 @@ function renderSlotContent(cell, meal, day) {
  * The planner stores the recipe ID, not the recipe name.
  */
 function openSlotPicker(meal, day) {
+  pickerFilterState = {
+    cuisines: new Set(),
+    mealTypes: new Set(),
+    dietary: new Set(),
+    maxTime: null,
+  };
+
   const modal = document.createElement("div");
   modal.className = "slot-picker-modal";
   modal.setAttribute("role", "dialog");
   modal.setAttribute("aria-modal", "true");
-
-  const recipeOptions = recipes
-    .map(
-      (recipe) =>
-        `<option value="${recipe.id}">${recipe.name} - $${Number(
-          recipe.cost_per_serving ?? recipe.cost ?? 0
-        ).toFixed(2)}/serving</option>`
-    )
-    .join("");
 
   modal.innerHTML = `
     <div class="slot-picker-box">
       <button type="button" class="slot-picker-close" aria-label="Close">&times;</button>
       <h3>Add Recipe — ${meal} / ${day}</h3>
 
-      <select id="slotRecipeSelect" class="form-select">
-        <option value="">Choose a recipe...</option>
-        ${recipeOptions}
-      </select>
+      <div id="pickerFilterPanel">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <strong>Filter recipes</strong>
+          <button type="button" class="filter-clear-btn" id="pickerFilterClearBtn">Clear</button>
+        </div>
 
-      <button type="button" class="btn-savery-green" id="slotConfirmBtn">Add to Plan</button>
+        <div class="filter-group">
+          <label class="filter-group-label">Cuisine</label>
+          <div class="filter-options" id="pickerCuisineOptions"></div>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-group-label">Meal Type</label>
+          <div class="filter-options" id="pickerMealOptions"></div>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-group-label">Diet</label>
+          <div class="filter-options" id="pickerDietOptions"></div>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-group-label" for="pickerFilterMaxTime">Max prep + cook time (min)</label>
+          <input type="number" id="pickerFilterMaxTime" class="filter-select" min="0" placeholder="Any time" />
+        </div>
+      </div>
+
+      <select id="slotRecipeSelect" class="form-select mt-3"></select>
+      <p class="small text-muted mt-2" id="pickerFilterSummary"></p>
+      <button class="btn-savery-green mt-2" id="slotConfirmBtn">Add to Plan</button>
     </div>
   `;
 
   document.body.appendChild(modal);
+
+  initializePickerFilterPanel(modal);
+  syncPickerFilterState(modal);
+  renderPickerRecipeOptions(modal);
+  setupPickerFilterControls(modal);
 
   const select = modal.querySelector("#slotRecipeSelect");
   select.focus();
