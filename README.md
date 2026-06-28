@@ -2,6 +2,12 @@
 
 A web application that helps college students discover affordable recipes, save their favorites, and create budget-friendly meal plans.
 
+It was nice to see a great idea implemented this well, so great work! The leftover recommendation feature was well done. The scoring logic in recommendations.js where it ranks suggestions by fewest extra packages needed, then most shared ingredients, then cheapest is a implemented with design thought behind it and isn’t just a feature that technically works. And that combined with the cost per serving vs grocery run distinction is what makes this feel very personalized, which stood out to me!
+A few things I noticed reading through the code though. favoritesPage.js still has a comment at the top referencing localStorage which looks like it's leftover from before you moved everything to MongoDB. 
+Also I was wondering if you thought about what happens when two people submit a new recipe at the same time. getNextRecipeId reads the current max and increments it so two simultaneous requests could maybe grab the same ID? I don’t know if it could exactly happens at this scale but it's an interesting edge case to that came ot me when I was going through your code.
+I loved the UI design as well, and enjoyed reviewing your code!
+
+
 ## Authors
 
 - **Melissa Rejuan**
