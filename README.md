@@ -13,9 +13,7 @@ A web application that helps college students discover affordable recipes, save 
 
 ## Class Link
 
-> Replace the URL below with your course Canvas or syllabus page before submitting.
-
-[Web Development — Project 2](https://YOUR-COURSE-LINK-HERE)
+[Web Development — Project 2](https://johnguerra.co/classes/webDevelopment_online_summer_2026/)
 
 ## Project Objective
 
