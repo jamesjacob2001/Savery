@@ -2,6 +2,19 @@
 
 A web application that helps college students discover affordable recipes, save their favorites, and create budget-friendly meal plans.
 
+---
+Feedback:
+
+This is a great and useful website and I love the features you added! Being able to track your ingredients and know what you'll have leftover so you can use them makes this meal prep plan so unique and relevant for college students on a budget. Very cool that you can plan your next meals around leftovers from previous meals. You included the cost for the grocery store trip in addition to the cost per serving which is also a great feature, allowing for precise financial planning during meal prep. I love the customizeable meal prep plans, excellent touch! All the features you implemented seem to work very well!
+
+I had some difficulty navigating back to the main page that lists all the recipes, once I clicked into the meal prep section and favorites screen. I realized you could just click on the logo in the top center and you would navigate back to the main page - I would suggest also adding a button to make it more clear to users how to get back to 'home.' Also as you scroll through the recipes, some of the images aren't rendering at times. I also ran it through the w3 validator and there was only 1 warning about a header field, great job! 
+
+One thing I might add would be a way of the user logging in. I saw in the routes that you used a demo-user which is hardcoded for the app to work. If I want to log in from a different device and access all my saved meal plans and favorites, it currently saves everything I enter from any device and any browser, so making this unique to the user would be helpful. It would also be cool to have a group meal plan with other users attached, so we can all create a weekly meal prep together and have a cost breakdown of what each person will spend on a shared meal plan. 
+
+You have consistent try/catch blocks on every route with input validation before hitting the database. You have all the correct HTTP status codes for bad input, created & server errors. There is clean separation between the database logic too. The front end, css and html files are well organized and very logical making this code super easy to read and understand. You both did an outstanding job on this! 
+
+---
+
 ## Authors
 
 - **Melissa Rejuan**
